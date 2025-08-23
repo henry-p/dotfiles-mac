@@ -1,0 +1,126 @@
+{
+    "[clojure]": {
+        "editor.defaultFormatter": "betterthantomorrow.calva",
+        "editor.formatOnSave": true
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "[ruby]": {
+        "editor.defaultFormatter": "misogi.ruby-rubocop"
+    },
+    "calva.autoEvaluateCode": {
+        "onConnect": {
+            "clj": "(when-let [requires (resolve 'clojure.main/repl-requires)] (clojure.core/apply clojure.core/require @requires))",
+            "cljs": "(require '[cljs.repl :refer [apropos dir doc find-doc print-doc pst source]])"
+        },
+        "onFileLoaded": {
+            "clj": null,
+            "cljs": null
+        }
+    },
+    "calva.definitionProviderPriority": [
+        "lsp",
+        "repl"
+    ],
+    "calva.highlight.bracketColors": [
+        [
+            "#000",
+            "#ccc"
+        ],
+        "#0098e6",
+        "#e16d6d",
+        "#3fa455",
+        "#c968e6",
+        "#999",
+        "#ce7e00"
+    ],
+    "calva.highlight.matchedBracketStyle": {
+        "backgroundColor": "yellow"
+    },
+    "calva.jackInDependencyVersions": {
+        "cider-nrepl": "0.28.5",
+        "cider/piggieback": "0.5.3",
+        "nrepl": "1.0.0"
+    },
+    "calva.jackInEnv": {},
+    "calva.myCljAliases": [
+        "z-calva-repl"
+    ],
+    "calva.paredit.defaultKeyMap": "strict",
+    "calva.paredit.killAlsoCutsToClipboard": true,
+    "calva.paredit.strictPreventUnmatchedClosingBracket": true,
+    "calva.prettyPrintingOptions": {
+        "enabled": true,
+        "maxLength": 50,
+        "printEngine": "pprint",
+        "width": 120
+    },
+    "calva.replConnectSequences": [],
+    "commands.commands": {
+        "runCalvaCommands": {
+            "sequence": [
+                {
+                    "command": "workbench.action.files.save"
+                },
+                {
+                    "command": "calva.evaluateCurrentTopLevelForm"
+                },
+                {
+                    "args": "(zereal.datalift.magic-emails.niches.logistics.email-generation.core/preview-email \"test/clj/zereal/datalift/magic_emails/niches/logistics/fixtures/1_extracted_email/success.edn\" \"test/clj/zereal/datalift/magic_emails/niches/logistics/fixtures/2_enriched_ai_response/success.edn\" \"test/clj/zereal/datalift/magic_emails/niches/logistics/fixtures/2_itsmycargo_whitelabel_response/success.edn\" \"test/clj/zereal/datalift/magic_emails/niches/logistics/fixtures/2_itsmycargo_quotation_response/success.edn\" {:just-save-html true})",
+                    "command": "calva.runCustomREPLCommand"
+                }
+            ]
+        }
+    },
+    "cSpell.enabled": false,
+    "cSpell.language": "en,de-DE",
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.cursorBlinking": "solid",
+    "editor.cursorStyle": "block",
+    "editor.fontFamily": "JetBrains Mono, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 16,
+    "editor.hover.above": false,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "trailing",
+    "editor.rulers": [
+        72
+    ],
+    "editor.tabSize": 2,
+    "genieai.enableConversationHistory": true,
+    "gitlens.currentLine.enabled": false,
+    "gitlens.rebaseEditor.ordering": "asc",
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "livePreview.autoRefreshPreview": "On Changes to Saved Files",
+    "notebook.editorOptionsCustomizations": {
+        "editor.indentSize": 4,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
+    },
+    "notebook.lineNumbers": "on",
+    "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+    "security.workspace.trust.untrustedFiles": "open",
+    "telemetry.telemetryLevel": "off",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.tabs.location": "left",
+    "window.autoDetectColorScheme": true,
+    "window.commandCenter": false,
+    "workbench.colorCustomizations": {},
+    "workbench.colorTheme": "Darcula",
+    "workbench.editor.closeEmptyGroups": false,
+    "workbench.editorAssociations": {
+        "git-rebase-todo": "default"
+    },
+    "workbench.layoutControl.enabled": false,
+    "workbench.preferredDarkColorTheme": "Darcula",
+    "workbench.preferredLightColorTheme": "Solarized Light",
+    "workbench.startupEditor": "none",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    }
+}

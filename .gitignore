@@ -1,0 +1,29 @@
+# VS Code and Cursor noisy files
+# These files contain machine-specific or frequently changing data
+# and should not be version controlled
+# Note: Cursor inherits VS Code settings, so only vscode/ patterns needed
+# Note: extensions.txt IS tracked (it's the extensions list we want to version control)
+
+# Storage and state files
+editors/vscode/User/workspaceStorage/
+editors/vscode/User/globalStorage/state.vscdb*
+editors/vscode/User/storage.json
+
+# Logs
+editors/vscode/User/*.log
+*.log
+
+# Machine-specific settings
+editors/vscode/User/machineId
+editors/vscode/User/machineid
+
+# Extension host logs
+editors/vscode/User/logs/
+
+# Crash reports
+editors/vscode/User/CachedExtensions/
+editors/vscode/User/CachedExtensionVSIXs/
+
+# User data that shouldn't be synced
+editors/vscode/User/History/
+editors/vscode/User/Backups/

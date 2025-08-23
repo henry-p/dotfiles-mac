@@ -1,0 +1,39 @@
+// Geben Sie Ihre Tastenzuordnungen in dieser Datei ein, um die Standardwerte außer Kraft zu setzen.auto[]
+[
+  {
+    "key": "cmd+'",
+    "command": "paredit.raiseSexp",
+    "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
+  },
+  {
+    "key": "cmd+k cmd+k",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "editor.action.selectAll",
+        "deleteLeft",
+        "workbench.action.files.save"
+      ]
+    },
+    "when": "calva:connected && calva:keybindingsEnabled && calva:outputWindowActive"
+  },
+  {
+    "key": "cmd+shift+r",
+    "command": "commands.run",
+    "args": [
+      "runCalvaCommands"
+    ],
+    "when": "calva:connected && calva:keybindingsEnabled"
+  },
+  {
+    "key": "shift+cmd+c",
+    "command": "-workbench.action.terminal.openNativeConsole",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "cmd+shift+c cmd+shift+c",
+    "command": "calva.runCustomREPLCommand",
+    "args": "(integrant.repl/reset-all)",
+    "when": "calva:connected && calva:keybindingsEnabled"
+  }
+]

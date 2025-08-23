@@ -35,6 +35,17 @@ echo "📱 Setting up Aerospace configuration..."
 ./aerospace/setup.sh
 
 # ==========================================
+# EDITOR CONFIGURATIONS
+# ==========================================
+echo ""
+echo "🎨 Setting up editor configurations..."
+echo "=========================================="
+
+# Editor settings (VS Code & Cursor)
+echo "⚙️  Setting up editor settings..."
+./editors/setup.sh
+
+# ==========================================
 # COMPLETION
 # ==========================================
 echo ""

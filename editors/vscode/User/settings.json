@@ -51,10 +51,10 @@
     "calva.paredit.killAlsoCutsToClipboard": true,
     "calva.paredit.strictPreventUnmatchedClosingBracket": true,
     "calva.prettyPrintingOptions": {
-        "enabled": true,
-        "maxLength": 50,
         "printEngine": "pprint",
-        "width": 120
+        "enabled": true,
+        "width": 120,
+        "maxLength": 50
     },
     "calva.replConnectSequences": [],
     "commands.commands": {
@@ -67,7 +67,7 @@
                     "command": "calva.evaluateCurrentTopLevelForm"
                 },
                 {
-                    "args": "(zereal.datalift.magic-emails.niches.logistics.email-generation.core/preview-email \"test/clj/zereal/datalift/magic_emails/niches/logistics/fixtures/1_extracted_email/success.edn\" \"test/clj/zereal/datalift/magic_emails/niches/logistics/fixtures/2_enriched_ai_response/success.edn\" \"test/clj/zereal/datalift/magic_emails/niches/logistics/fixtures/2_itsmycargo_whitelabel_response/success.edn\" \"test/clj/zereal/datalift/magic_emails/niches/logistics/fixtures/2_itsmycargo_quotation_response/success.edn\" {:just-save-html true})",
+                    "args": "(zereal.datalift.magic-emails.flows.saco.email-generation.rendering/exec!)",
                     "command": "calva.runCustomREPLCommand"
                 }
             ]
@@ -122,5 +122,9 @@
     "workbench.startupEditor": "none",
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
-    }
+    },
+    "workbench.activityBar.location": "top",
+    "chatgpt.apiBase": "",
+    "chatgpt.openOnStartup": true,
+    "github.copilot.nextEditSuggestions.enabled": true
 }

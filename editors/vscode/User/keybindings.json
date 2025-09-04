@@ -35,5 +35,9 @@
     "command": "calva.runCustomREPLCommand",
     "args": "(integrant.repl/reset-all)",
     "when": "calva:connected && calva:keybindingsEnabled"
+  },
+  {
+    "key": "cmd+;",
+    "command": "chatgpt.addToChat"
   }
 ]

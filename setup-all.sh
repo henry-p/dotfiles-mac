@@ -46,6 +46,17 @@ echo "⚙️  Setting up editor settings..."
 ./editors/setup.sh
 
 # ==========================================
+# CODING ASSISTANTS
+# ==========================================
+echo ""
+echo "🤖 Setting up coding assistant configurations..."
+echo "=========================================="
+
+# Codex configuration
+echo "💡 Setting up Codex configuration..."
+./coding_assistants/codex/setup.sh
+
+# ==========================================
 # COMPLETION
 # ==========================================
 echo ""

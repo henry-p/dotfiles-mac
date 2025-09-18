@@ -1,0 +1,28 @@
+model = "gpt-5-codex"
+model_reasoning_effort = "medium"
+
+[projects."/Users/henry/coding/clojure-web-apps/streamdown"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/clojure-web-apps/datalift"]
+trust_level = "trusted"
+
+[mcp_servers.context7]
+command = "mcp-proxy"
+args = ["--transport", "streamablehttp", "https://mcp.context7.com/mcp"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest", "--extension"]
+
+[mcp_servers.clojure-mcp]
+command = "docker"
+args = [
+  "exec",
+  "-i",
+  "clojure-mcp-server",
+  "clojure",
+  "-X:mcp",
+  ":host", "\"main-server\"",
+  ":port", "7001"
+]

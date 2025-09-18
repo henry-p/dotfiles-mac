@@ -126,5 +126,11 @@
     "workbench.activityBar.location": "top",
     "chatgpt.apiBase": "",
     "chatgpt.openOnStartup": true,
-    "github.copilot.nextEditSuggestions.enabled": true
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
 }

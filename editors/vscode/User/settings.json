@@ -114,7 +114,9 @@
     "workbench.colorTheme": "Darcula",
     "workbench.editor.closeEmptyGroups": false,
     "workbench.editorAssociations": {
-        "git-rebase-todo": "default"
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "git-rebase-todo": "default",
+        "*.msg": "default"
     },
     "workbench.layoutControl.enabled": false,
     "workbench.preferredDarkColorTheme": "Darcula",
@@ -133,5 +135,17 @@
         "markdown": false,
         "scminput": false
     },
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "files.associations": {
+        "*.edn.enc": "clojure"
+    }
 }

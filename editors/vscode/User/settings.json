@@ -1,7 +1,8 @@
 {
     "[clojure]": {
         "editor.defaultFormatter": "betterthantomorrow.calva",
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "diffEditor.ignoreTrimWhitespace": false
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
@@ -120,7 +121,7 @@
     },
     "workbench.layoutControl.enabled": false,
     "workbench.preferredDarkColorTheme": "Darcula",
-    "workbench.preferredLightColorTheme": "Solarized Light",
+    "workbench.preferredLightColorTheme": "Kimbie Dark",
     "workbench.startupEditor": "none",
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
@@ -147,5 +148,6 @@
     },
     "files.associations": {
         "*.edn.enc": "clojure"
-    }
+    },
+    "calva.keybindingsEnabled": true
 }

@@ -39,5 +39,34 @@
   {
     "key": "cmd+;",
     "command": "chatgpt.addToChat"
+  },
+  {
+    "key": "ctrl+cmd+r",
+    "command": "revealFileInOS"
+  },
+  {
+    "key": "alt+cmd+r",
+    "command": "-revealFileInOS",
+    "when": "!editorFocus"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "seito-openfile.openFileFromText",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+p",
+    "command": "-seito-openfile.openFileFromText",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+cmd+p",
+    "command": "seito-openfile.openFileExternFromText",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+alt+p",
+    "command": "-seito-openfile.openFileExternFromText",
+    "when": "editorTextFocus"
   }
 ]

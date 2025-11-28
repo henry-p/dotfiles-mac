@@ -1,10 +1,16 @@
-model = "gpt-5-codex"
+model = "gpt-5.1-codex-max"
 model_reasoning_effort = "medium"
 
 [projects."/Users/henry/coding/clojure-web-apps/streamdown"]
 trust_level = "trusted"
 
 [projects."/Users/henry/coding/clojure-web-apps/datalift"]
+trust_level = "trusted"
+
+[projects."/"]
+trust_level = "trusted"
+
+[projects."/Users/henry"]
 trust_level = "trusted"
 
 [mcp_servers.context7]
@@ -26,3 +32,16 @@ args = [
   ":host", "\"main-server\"",
   ":port", "7001"
 ]
+
+[mcp_servers.postgres-mcp]
+command = "docker"
+args = [
+  "run",
+  "-i",
+  "--rm",
+  "-e",
+  "DATABASE_URI",
+  "crystaldba/postgres-mcp",
+  "--access-mode=restricted"
+]
+env = { "DATABASE_URI" = "postgresql://postgres:postgres@localhost:5556/datalift" }

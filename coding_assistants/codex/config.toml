@@ -7,21 +7,7 @@ trust_level = "trusted"
 [projects."/Users/henry/coding/clojure-web-apps/datalift"]
 trust_level = "trusted"
 
-[projects."/"]
-trust_level = "trusted"
-
-[projects."/Users/henry"]
-trust_level = "trusted"
-
-[mcp_servers.context7]
-command = "mcp-proxy"
-args = ["--transport", "streamablehttp", "https://mcp.context7.com/mcp"]
-
-[mcp_servers.playwright]
-command = "npx"
-args = ["@playwright/mcp@latest", "--extension"]
-
-[mcp_servers.clojure-mcp]
+[projects."/Users/henry/coding/clojure-web-apps/datalift".mcp_servers.clojure-mcp]
 command = "docker"
 args = [
   "exec",
@@ -33,7 +19,7 @@ args = [
   ":port", "7001"
 ]
 
-[mcp_servers.postgres-mcp]
+[projects."/Users/henry/coding/clojure-web-apps/datalift".mcp_servers.postgres-mcp]
 command = "docker"
 args = [
   "run",
@@ -45,3 +31,11 @@ args = [
   "--access-mode=restricted"
 ]
 env = { "DATABASE_URI" = "postgresql://postgres:postgres@localhost:5556/datalift" }
+
+[mcp_servers.context7]
+command = "mcp-proxy"
+args = ["--transport", "streamablehttp", "https://mcp.context7.com/mcp"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest", "--extension"]

@@ -149,5 +149,6 @@
     "files.associations": {
         "*.edn.enc": "clojure"
     },
-    "calva.keybindingsEnabled": true
+    "calva.keybindingsEnabled": true,
+    "security.promptForLocalFileProtocolHandling": false
 }

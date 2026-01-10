@@ -123,9 +123,6 @@
     "workbench.preferredDarkColorTheme": "Darcula",
     "workbench.preferredLightColorTheme": "Kimbie Dark",
     "workbench.startupEditor": "none",
-    "extensions.experimental.affinity": {
-        "asvetliakov.vscode-neovim": 1
-    },
     "workbench.activityBar.location": "top",
     "chatgpt.apiBase": "",
     "chatgpt.openOnStartup": true,

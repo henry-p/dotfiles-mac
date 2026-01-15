@@ -278,3 +278,13 @@ run = "move-node-to-workspace E"
 [[on-window-detected]]
 if.app-id = "md.obsidian"
 run = "move-node-to-workspace Y"
+
+# Gimp
+[[on-window-detected]]
+if.app-id = "org.gimp.gimp"
+run = ["layout floating", "move-node-to-workspace Y"]
+
+# Inkscape
+[[on-window-detected]]
+if.app-id = "org.inkscape.Inkscape"
+run = ["layout floating", "move-node-to-workspace Y"]

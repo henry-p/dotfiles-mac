@@ -1,5 +1,10 @@
 model = "gpt-5.2-codex"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "xhigh"
+sandbox_mode = "danger-full-access"
+approval_policy = "never"
+
+[tui]
+notifications = false
 
 [features]
 web_search_request = true
@@ -90,4 +95,7 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/henry/coding/agentbuffer"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/clawdbot"]
 trust_level = "trusted"

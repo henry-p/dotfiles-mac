@@ -252,7 +252,7 @@ run = "move-node-to-workspace O"
 
 # Google Calendar (Safari web app)
 [[on-window-detected]]
-if.window-title-regex-substring = 'Kalender'
+if.app-id = "com.apple.Safari.WebApp.E6842B24-5AAA-4BEB-A544-691B8D21AA51"
 run = "move-node-to-workspace O"
 
 # To Do
@@ -262,6 +262,11 @@ run = "move-node-to-workspace O"
 
 # Entertainment ---------------------------------------------------------------
 
+# QuickTime Player
+[[on-window-detected]]
+if.app-id = "com.apple.QuickTimePlayerX"
+run = "layout floating"
+
 # Spotify
 [[on-window-detected]]
 if.app-id = "com.spotify.client"
@@ -270,7 +275,7 @@ run = "move-node-to-workspace E"
 # Yousician
 [[on-window-detected]]
 if.app-id = "unity.Yousician.Yousician"
-run = "move-node-to-workspace E"
+run = ["layout floating", "move-node-to-workspace E"]
 
 # Ideation ----------------------------------------------------------------
 

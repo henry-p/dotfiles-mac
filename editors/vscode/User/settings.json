@@ -147,5 +147,6 @@
         "*.edn.enc": "clojure"
     },
     "calva.keybindingsEnabled": true,
-    "security.promptForLocalFileProtocolHandling": false
+    "security.promptForLocalFileProtocolHandling": false,
+    "git.openRepositoryInParentFolders": "never"
 }

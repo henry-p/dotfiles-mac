@@ -7,6 +7,7 @@ A comprehensive dotfiles repository for macOS that manages system configurations
 This repository provides automated setup scripts for:
 - **macOS System Settings**: Animation timings, motion reduction, and system preferences
 - **Aerospace Window Manager**: Tiling window manager configuration
+- **tmux**: Terminal multiplexer configuration
 - **Editor Settings**: VS Code and Cursor settings managed via symlinks
 
 ## Quick Start
@@ -22,6 +23,7 @@ bash setup-all.sh
 # Or run individual components
 bash macos/setup.sh     # macOS system settings only
 bash aerospace/setup.sh # Aerospace window manager
+bash tmux/setup.sh      # tmux configuration
 bash editors/setup.sh   # Editor configurations
 ```
 
@@ -193,6 +195,9 @@ ls -la ~/Library/Application\ Support/Cursor/User/
 ~/coding/dotfiles-mac/
 ├── aerospace/
 │   └── setup.sh          # Aerospace window manager setup
+├── tmux/
+│   ├── .tmux.conf        # tmux configuration
+│   └── setup.sh          # tmux setup (symlink)
 ├── editors/
 │   ├── setup.sh          # Editor symlink management
 │   ├── sync-extensions.sh # Bidirectional extension sync

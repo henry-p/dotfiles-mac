@@ -35,6 +35,17 @@ echo "📱 Setting up Aerospace configuration..."
 ./aerospace/setup.sh
 
 # ==========================================
+# TERMINAL CONFIGURATIONS
+# ==========================================
+echo ""
+echo "🧰 Setting up terminal configurations..."
+echo "=========================================="
+
+# tmux
+echo "🧩 Setting up tmux configuration..."
+./tmux/setup.sh
+
+# ==========================================
 # EDITOR CONFIGURATIONS
 # ==========================================
 echo ""

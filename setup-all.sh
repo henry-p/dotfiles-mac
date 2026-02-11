@@ -45,6 +45,10 @@ echo "=========================================="
 echo "🧩 Setting up tmux configuration..."
 ./tmux/setup.sh
 
+# zsh
+echo "🐚 Setting up zsh configuration..."
+./zsh/setup.sh
+
 # ==========================================
 # EDITOR CONFIGURATIONS
 # ==========================================

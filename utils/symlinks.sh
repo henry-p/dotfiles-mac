@@ -2,8 +2,16 @@
 
 # Utility functions for dotfile management scripts
 
-# Get the dotfiles root directory (parent of scripts directory)
+# Get the dotfiles root directory.
+# Priority:
+#   1) DOTFILES_REPO env var (if set)
+#   2) Parent of the repo's utility scripts directory (auto-detected)
 get_dotfiles_dir() {
+    if [[ -n "${DOTFILES_REPO:-}" ]]; then
+        echo "$DOTFILES_REPO"
+        return 0
+    fi
+
     local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     echo "$(dirname "$script_dir")"
 }
@@ -279,4 +287,3 @@ create_symlink() {
         return 1
     fi
 }
-

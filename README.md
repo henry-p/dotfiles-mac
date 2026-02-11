@@ -8,14 +8,15 @@ This repository provides automated setup scripts for:
 - **macOS System Settings**: Animation timings, motion reduction, and system preferences
 - **Aerospace Window Manager**: Tiling window manager configuration
 - **tmux**: Terminal multiplexer configuration
+- **zsh**: Shell configuration via symlinked `.zshrc`
 - **Editor Settings**: VS Code and Cursor settings managed via symlinks
 
 ## Quick Start
 
 ```bash
 # Clone the repository
-git clone <your-repo-url> ~/coding/dotfiles-mac
-cd ~/coding/dotfiles-mac
+git clone <your-repo-url> ~/coding/private/dotfiles-mac
+cd ~/coding/private/dotfiles-mac
 
 # Run complete setup
 bash setup-all.sh
@@ -24,6 +25,7 @@ bash setup-all.sh
 bash macos/setup.sh     # macOS system settings only
 bash aerospace/setup.sh # Aerospace window manager
 bash tmux/setup.sh      # tmux configuration
+bash zsh/setup.sh       # zsh configuration
 bash editors/setup.sh   # Editor configurations
 ```
 
@@ -53,12 +55,23 @@ The following files and directories are managed (VS Code settings, inherited by 
 ### Directory Structure
 
 ```
-~/coding/dotfiles-mac/
+~/coding/private/dotfiles-mac/
 ├── editors/
 │   ├── setup.sh          # Setup symlinks
 │   ├── unlink.sh         # Remove symlinks
 │   └── vscode/User/      # VS Code settings (shared by Cursor)
 ```
+
+### Dotfiles Path Variable (Optional)
+
+All setup scripts auto-detect the repo location from their own path.
+You can also set a single override variable:
+
+```bash
+export DOTFILES_REPO="$HOME/coding/private/dotfiles-mac"
+```
+
+When set, scripts use `DOTFILES_REPO` as the source path for symlinks.
 
 ### Live Paths (Symlink Sources)
 
@@ -192,12 +205,16 @@ ls -la ~/Library/Application\ Support/Cursor/User/
 ## Repository Structure
 
 ```
-~/coding/dotfiles-mac/
+~/coding/private/dotfiles-mac/
 ├── aerospace/
 │   └── setup.sh          # Aerospace window manager setup
 ├── tmux/
 │   ├── .tmux.conf        # tmux configuration
 │   └── setup.sh          # tmux setup (symlink)
+├── zsh/
+│   ├── .zshrc            # zsh configuration
+│   ├── setup.sh          # zsh setup (symlink)
+│   └── unlink.sh         # remove zsh symlink / restore file
 ├── editors/
 │   ├── setup.sh          # Editor symlink management
 │   ├── sync-extensions.sh # Bidirectional extension sync

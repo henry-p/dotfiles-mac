@@ -1,13 +1,12 @@
-model = "gpt-5.2-codex"
-model_reasoning_effort = "xhigh"
+model = "gpt-5.3-codex"
+model_reasoning_effort = "medium"
 sandbox_mode = "danger-full-access"
 approval_policy = "never"
+personality = "pragmatic"
+web_search = "live"
 
 [tui]
 notifications = false
-
-[features]
-web_search_request = true
 
 [sandbox_workspace_write]
 network_access = true
@@ -26,76 +25,3 @@ args = ["--transport", "streamablehttp", "https://mcp.context7.com/mcp"]
 [mcp_servers.playwright]
 command = "npx"
 args = ["@playwright/mcp@latest", "--extension"]
-
-[projects."/Users/henry/coding/clojure-web-apps/datalift".mcp_servers.clojure-mcp]
-command = "docker"
-args = [
-  "exec",
-  "-i",
-  "clojure-mcp-server",
-  "clojure",
-  "-X:mcp",
-  ":host", "\"main-server\"",
-  ":port", "7001"
-]
-
-[projects."/Users/henry/coding/clojure-web-apps/datalift".mcp_servers.postgres-mcp]
-command = "docker"
-args = [
-  "run",
-  "-i",
-  "--rm",
-  "-e",
-  "DATABASE_URI",
-  "crystaldba/postgres-mcp",
-  "--access-mode=restricted"
-]
-env = { "DATABASE_URI" = "postgresql://postgres:postgres@localhost:5556/datalift" }
-
-[projects."/Users/henry/coding/clojure-web-apps/streamdown"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/clojure-web-apps/datalift"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/richparse"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal/landing"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal/richparse"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/thinkingrocks"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal/modelmerge"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal/logo"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal/presskit"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal/vibeps"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/trading/fuzzytrade"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/trading/numerai"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/jff"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/agentbuffer"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/clawdbot"]
-trust_level = "trusted"

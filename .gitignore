@@ -27,3 +27,8 @@ editors/vscode/User/CachedExtensionVSIXs/
 # User data that shouldn't be synced
 editors/vscode/User/History/
 editors/vscode/User/Backups/
+
+# iTerm2 custom preferences folder noise
+terminals/iterm2/*.lock
+terminals/iterm2/*.old
+terminals/iterm2/*.bak

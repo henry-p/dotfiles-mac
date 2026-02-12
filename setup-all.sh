@@ -41,6 +41,10 @@ echo ""
 echo "🧰 Setting up terminal configurations..."
 echo "=========================================="
 
+# iTerm2
+echo "🖥️  Setting up iTerm2 preferences..."
+./terminals/iterm2/setup.sh
+
 # tmux
 echo "🧩 Setting up tmux configuration..."
 ./tmux/setup.sh

@@ -121,7 +121,7 @@
     },
     "workbench.layoutControl.enabled": false,
     "workbench.preferredDarkColorTheme": "Darcula",
-    "workbench.preferredLightColorTheme": "Kimbie Dark",
+    "workbench.preferredLightColorTheme": "Night Owl Light",
     "workbench.startupEditor": "none",
     "workbench.activityBar.location": "top",
     "chatgpt.apiBase": "",

@@ -165,22 +165,24 @@ automatically-unhide-macos-hidden-apps = false
 
 # App callbacks ===============================================================
 
-# General ---------------------------------------------------------------------
-
-# Preview
-[[on-window-detected]]
-if.app-id = "com.apple.Preview"
-run = "layout floating"
+# System tray ---------------------------------------------------------------------
 
 # Superwhisper
 [[on-window-detected]]
 if.app-id = "com.superwhisper.app"
 run = "layout floating"
 
-# ChatGPT
+# File viewing ---------------------------------------------------------------------
+
+# Preview
 [[on-window-detected]]
-if.app-id = "com.openai.chat"
-run = "move-node-to-workspace X"
+if.app-id = "com.apple.Preview"
+run = "layout floating"
+
+# Excel
+[[on-window-detected]]
+if.app-id = "com.microsoft.Excel"
+run = "layout floating"
 
 # Browser ---------------------------------------------------------------------
 
@@ -190,6 +192,11 @@ if.app-id = "com.google.Chrome"
 run = "move-node-to-workspace 1"
 
 # Coding ----------------------------------------------------------------------
+
+# iTerm2
+[[on-window-detected]]
+if.app-id = "com.googlecode.iterm2"
+run = "move-node-to-workspace 3"
 
 # VSCode
 [[on-window-detected]]
@@ -201,20 +208,19 @@ run = "move-node-to-workspace 2"
 if.app-id = "com.todesktop.230313mzl4w4u92"
 run = "move-node-to-workspace 2"
 
+# Codex App
+[[on-window-detected]]
+if.app-id = "com.openai.codex"
+run = "move-node-to-workspace 3"
+
 # Clojure Flowstorm
 [[on-window-detected]]
 if.window-title-regex-substring = 'Flowstorm debugger'
 run = "move-node-to-workspace 2"
 
-# Clojure Flowstorm
 [[on-window-detected]]
 if.window-title-regex-substring = 'FlowStorm multi-thread'
 run = "layout floating"
-
-# iTerm2
-[[on-window-detected]]
-if.app-id = "com.googlecode.iterm2"
-run = "move-node-to-workspace 3"
 
 # Postman
 [[on-window-detected]]
@@ -278,6 +284,11 @@ if.app-id = "unity.Yousician.Yousician"
 run = ["layout floating", "move-node-to-workspace E"]
 
 # Ideation ----------------------------------------------------------------
+
+# ChatGPT
+[[on-window-detected]]
+if.app-id = "com.openai.chat"
+run = "move-node-to-workspace X"
 
 # Obsidian
 [[on-window-detected]]

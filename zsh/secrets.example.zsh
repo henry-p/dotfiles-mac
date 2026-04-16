@@ -1,5 +1,6 @@
-# Copy this file to: ~/.config/dotfiles/secrets.zsh
-# Then fill in real values locally. Do not commit that file.
+# Copy this file to: /Users/henry/coding/private/dotfiles-mac/zsh/secrets.zsh
+# Then symlink it to: ~/.config/dotfiles/secrets.zsh
+# Do not commit the real secrets file.
 
 # Homebrew
 # export HOMEBREW_GITHUB_API_TOKEN="<github_pat>"

@@ -8,7 +8,7 @@ This repository provides automated setup scripts for:
 - **macOS System Settings**: Animation timings, motion reduction, and system preferences
 - **Aerospace Window Manager**: Tiling window manager configuration
 - **tmux**: Terminal multiplexer configuration
-- **zsh**: Shell configuration via symlinked `.zshrc`
+- **zsh**: Shell configuration via symlinked `.zshrc` and optional local secrets symlink
 - **Editor Settings**: VS Code and Cursor settings managed via symlinks
 
 ## Quick Start
@@ -27,6 +27,26 @@ bash aerospace/setup.sh # Aerospace window manager
 bash tmux/setup.sh      # tmux configuration
 bash zsh/setup.sh       # zsh configuration
 bash editors/setup.sh   # Editor configurations
+```
+
+## zsh Local Secrets
+
+This repo supports keeping your local shell secrets in:
+
+- repo file: `~/coding/private/dotfiles-mac/zsh/secrets.zsh`
+- home path used by `.zshrc`: `~/.config/dotfiles/secrets.zsh`
+
+The repo file is gitignored. `bash zsh/setup.sh` will:
+
+1. symlink `zsh/.zshrc` to `~/.zshrc`
+2. symlink `zsh/secrets.zsh` to `~/.config/dotfiles/secrets.zsh` when the repo file exists
+3. migrate an existing real `~/.config/dotfiles/secrets.zsh` into the repo and replace it with a symlink when the repo file does not yet exist
+
+To create a fresh secrets file, start from:
+
+```bash
+cp zsh/secrets.example.zsh zsh/secrets.zsh
+bash zsh/setup.sh
 ```
 
 ## Editor Settings Management
@@ -213,8 +233,10 @@ ls -la ~/Library/Application\ Support/Cursor/User/
 │   └── setup.sh          # tmux setup (symlink)
 ├── zsh/
 │   ├── .zshrc            # zsh configuration
+│   ├── secrets.example.zsh # example local secrets file
+│   ├── secrets.zsh       # local secrets file (gitignored)
 │   ├── setup.sh          # zsh setup (symlink)
-│   └── unlink.sh         # remove zsh symlink / restore file
+│   └── unlink.sh         # remove zsh symlinks / restore files
 ├── editors/
 │   ├── setup.sh          # Editor symlink management
 │   ├── sync-extensions.sh # Bidirectional extension sync

@@ -32,3 +32,6 @@ editors/vscode/User/Backups/
 terminals/iterm2/*.lock
 terminals/iterm2/*.old
 terminals/iterm2/*.bak
+
+# Local secrets
+zsh/secrets.zsh

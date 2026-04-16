@@ -20,6 +20,11 @@
             "cljs": null
         }
     },
+    "calva.outputDestinations": {
+        "evalResults": "output-view",
+        "evalOutput": "output-view",
+        "otherOutput": "output-view"
+    },
     "calva.definitionProviderPriority": [
         "lsp",
         "repl"

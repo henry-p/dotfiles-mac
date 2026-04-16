@@ -180,9 +180,9 @@ if.app-id = "com.apple.Preview"
 run = "layout floating"
 
 # Excel
-[[on-window-detected]]
-if.app-id = "com.microsoft.Excel"
-run = "layout floating"
+# [[on-window-detected]]
+# if.app-id = "com.microsoft.Excel"
+# run = "layout floating"
 
 # Browser ---------------------------------------------------------------------
 
@@ -211,7 +211,7 @@ run = "move-node-to-workspace 2"
 # Codex App
 [[on-window-detected]]
 if.app-id = "com.openai.codex"
-run = "move-node-to-workspace 3"
+run = "move-node-to-workspace 2"
 
 # Clojure Flowstorm
 [[on-window-detected]]

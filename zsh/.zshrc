@@ -10,6 +10,7 @@ export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="$HOME/.gem/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
 export PATH=$PATH:$(go env GOPATH)/bin
 HISTFILE=~/.zsh_history
 HISTSIZE=999999999
@@ -184,9 +185,6 @@ lag () {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Created by `pipx` on 2024-01-05 22:15:16
-export PATH="$PATH:/Users/henry/.local/bin"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 

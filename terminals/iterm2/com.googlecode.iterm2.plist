@@ -858,6 +858,10 @@
 			<real>0.0</real>
 			<key>Mouse Reporting</key>
 			<true/>
+			<key>Mouse Reporting allow clicks and drags</key>
+			<true/>
+			<key>Mouse Reporting allow mouse wheel</key>
+			<true/>
 			<key>Name</key>
 			<string>DarkBlue</string>
 			<key>Non Ascii Font</key>

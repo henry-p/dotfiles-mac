@@ -198,6 +198,11 @@ run = "move-node-to-workspace 1"
 if.app-id = "com.googlecode.iterm2"
 run = "move-node-to-workspace 3"
 
+# Codex App
+[[on-window-detected]]
+if.app-id = "com.openai.codex"
+run = "move-node-to-workspace 3"
+
 # VSCode
 [[on-window-detected]]
 if.app-id = "com.microsoft.VSCode"
@@ -206,11 +211,6 @@ run = "move-node-to-workspace 2"
 # Cursor
 [[on-window-detected]]
 if.app-id = "com.todesktop.230313mzl4w4u92"
-run = "move-node-to-workspace 2"
-
-# Codex App
-[[on-window-detected]]
-if.app-id = "com.openai.codex"
 run = "move-node-to-workspace 2"
 
 # Clojure Flowstorm

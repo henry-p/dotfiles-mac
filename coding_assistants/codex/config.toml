@@ -1,9 +1,12 @@
-model = "gpt-5.3-codex"
-model_reasoning_effort = "medium"
+model = "gpt-5.4"
+model_reasoning_effort = "xhigh"
 sandbox_mode = "danger-full-access"
 approval_policy = "never"
 personality = "pragmatic"
 web_search = "live"
+approvals_reviewer = "user"
+plan_mode_reasoning_effort = "xhigh"
+service_tier = "fast"
 
 [tui]
 notifications = false
@@ -25,3 +28,43 @@ args = ["--transport", "streamablehttp", "https://mcp.context7.com/mcp"]
 [mcp_servers.playwright]
 command = "npx"
 args = ["@playwright/mcp@latest", "--extension"]
+env = { "PLAYWRIGHT_MCP_EXTENSION_TOKEN" = "9Wrs6IO2xI3qqNU_riXrUAXtH94r9bDPBJccFeb7aKk" }
+
+[projects."/Users/henry/coding/zereal/datalift"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/zereal/table-ai"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/autohome"]
+trust_level = "trusted"
+
+[projects."/Users/henry"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Library/Mobile Documents/iCloud~md~obsidian/Documents/VibeBrain"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/zereal/vibeps"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/jff"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Pattys GmbH Dropbox/Henry Perschk/Henry/Finanzen"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/trading/polytrade"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/saco"]
+trust_level = "trusted"
+
+[projects."/Users/henry/.codex"]
+trust_level = "trusted"
+
+[features]
+multi_agent = true

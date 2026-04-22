@@ -2,6 +2,8 @@
 set -euo pipefail
 
 workspace_root="${CODEX_WORKSPACE_ROOT:-$(pwd -P)}"
+scope="${PLAYWRIGHT_MCP_SCOPE:-thread}"
+thread_id="${CODEX_THREAD_ID:-}"
 
 if command -v git >/dev/null 2>&1; then
   if git_root="$(git -C "$workspace_root" rev-parse --show-toplevel 2>/dev/null)"; then
@@ -14,12 +16,61 @@ slug="$(
     tr '[:upper:]' '[:lower:]' |
     sed -E 's/[^a-z0-9._-]+/-/g; s/^-+//; s/-+$//'
 )"
-hash="$(printf '%s' "$workspace_root" | shasum -a 256 | awk '{print substr($1, 1, 12)}')"
+workspace_hash="$(printf '%s' "$workspace_root" | shasum -a 256 | awk '{print substr($1, 1, 12)}')"
 
-profile_dir="${HOME}/.codex/playwright-profiles/${slug}-${hash}"
-output_dir="${HOME}/.codex/playwright-mcp-output/${slug}-${hash}"
+case "$scope" in
+  thread)
+    if [[ -n "$thread_id" ]]; then
+      scope_hash="$(printf '%s' "$thread_id" | shasum -a 256 | awk '{print substr($1, 1, 12)}')"
+      scope_label="thread-${scope_hash}"
+    else
+      scope_label="worktree"
+    fi
+    ;;
+  worktree)
+    scope_label="worktree"
+    ;;
+  *)
+    echo "playwright-mcp-worktree: unsupported PLAYWRIGHT_MCP_SCOPE=$scope; expected 'thread' or 'worktree'" >&2
+    exit 2
+    ;;
+esac
 
-mkdir -p "$profile_dir" "$output_dir"
+profile_key="${slug}-${workspace_hash}-${scope_label}"
+profile_dir="${HOME}/.codex/playwright-profiles/${profile_key}"
+output_dir="${HOME}/.codex/playwright-mcp-output/${profile_key}"
+lock_dir="${HOME}/.codex/playwright-mcp-locks/${profile_key}"
+
+mkdir -p "$profile_dir" "$output_dir" "$(dirname "$lock_dir")"
+
+if [[ -d "$lock_dir" ]]; then
+  existing_pid="$(cat "$lock_dir/pid" 2>/dev/null || true)"
+  if [[ -n "$existing_pid" ]] && kill -0 "$existing_pid" 2>/dev/null; then
+    existing_thread_id="$(cat "$lock_dir/thread_id" 2>/dev/null || true)"
+    existing_workspace_root="$(cat "$lock_dir/workspace_root" 2>/dev/null || true)"
+    echo "playwright-mcp-worktree: browser profile already owned by another live session." >&2
+    echo "  scope=${scope_label}" >&2
+    echo "  pid=${existing_pid}" >&2
+    if [[ -n "$existing_thread_id" ]]; then
+      echo "  thread_id=${existing_thread_id}" >&2
+    fi
+    if [[ -n "$existing_workspace_root" ]]; then
+      echo "  workspace_root=${existing_workspace_root}" >&2
+    fi
+    echo "Use a different thread or set PLAYWRIGHT_MCP_SCOPE=thread so each agent gets its own browser/profile." >&2
+    exit 1
+  fi
+  rm -rf "$lock_dir"
+fi
+
+mkdir -p "$lock_dir"
+printf '%s\n' "$$" >"$lock_dir/pid"
+printf '%s\n' "$scope_label" >"$lock_dir/scope"
+printf '%s\n' "$workspace_root" >"$lock_dir/workspace_root"
+printf '%s\n' "$thread_id" >"$lock_dir/thread_id"
+printf '%s\n' "$profile_dir" >"$lock_dir/profile_dir"
+printf '%s\n' "$output_dir" >"$lock_dir/output_dir"
+date -u +"%Y-%m-%dT%H:%M:%SZ" >"$lock_dir/started_at"
 
 exec npx -y @playwright/mcp@latest \
   --browser chrome \

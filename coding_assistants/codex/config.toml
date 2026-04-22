@@ -26,9 +26,7 @@ command = "mcp-proxy"
 args = ["--transport", "streamablehttp", "https://mcp.context7.com/mcp"]
 
 [mcp_servers.playwright]
-command = "npx"
-args = ["@playwright/mcp@latest", "--extension"]
-env = { "PLAYWRIGHT_MCP_EXTENSION_TOKEN" = "9Wrs6IO2xI3qqNU_riXrUAXtH94r9bDPBJccFeb7aKk" }
+command = "/Users/henry/.codex/bin/playwright-mcp-worktree"
 
 [projects."/Users/henry/coding/zereal/datalift"]
 trust_level = "trusted"

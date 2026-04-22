@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+workspace_root="${CODEX_WORKSPACE_ROOT:-$(pwd -P)}"
+
+if command -v git >/dev/null 2>&1; then
+  if git_root="$(git -C "$workspace_root" rev-parse --show-toplevel 2>/dev/null)"; then
+    workspace_root="$git_root"
+  fi
+fi
+
+slug="$(
+  basename "$workspace_root" |
+    tr '[:upper:]' '[:lower:]' |
+    sed -E 's/[^a-z0-9._-]+/-/g; s/^-+//; s/-+$//'
+)"
+hash="$(printf '%s' "$workspace_root" | shasum -a 256 | awk '{print substr($1, 1, 12)}')"
+
+profile_dir="${HOME}/.codex/playwright-profiles/${slug}-${hash}"
+output_dir="${HOME}/.codex/playwright-mcp-output/${slug}-${hash}"
+
+mkdir -p "$profile_dir" "$output_dir"
+
+exec npx -y @playwright/mcp@latest \
+  --browser chrome \
+  --user-data-dir "$profile_dir" \
+  --output-dir "$output_dir" \
+  "$@"

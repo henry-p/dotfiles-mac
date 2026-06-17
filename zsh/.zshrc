@@ -175,6 +175,11 @@ fgo () {
 
 alias be="bundle exec"
 
+# pi-chat: launch pi with no project trust/context loading
+pi-chat() {
+  pi -na -nc "$@"
+}
+
 bopen () {
   code $(bundle info --path $1)
 }
@@ -201,3 +206,8 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/henry/.lmstudio/bin"
+# End of LM Studio CLI section
+

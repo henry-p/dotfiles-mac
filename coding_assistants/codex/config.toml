@@ -1,4 +1,4 @@
-model = "gpt-5.4"
+model = "gpt-5.5"
 model_reasoning_effort = "xhigh"
 sandbox_mode = "danger-full-access"
 approval_policy = "never"
@@ -6,16 +6,22 @@ personality = "pragmatic"
 web_search = "live"
 approvals_reviewer = "user"
 plan_mode_reasoning_effort = "xhigh"
-service_tier = "fast"
+
+notify = ["/Users/henry/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 
 [tui]
 notifications = false
+session_picker_view = "comfortable"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
 
 [sandbox_workspace_write]
 network_access = true
 
 [notice]
 hide_full_access_warning = true
+fast_default_opt_out = true
 
 [notice.model_migrations]
 "gpt-5.2" = "gpt-5.2-codex"
@@ -26,7 +32,30 @@ command = "mcp-proxy"
 args = ["--transport", "streamablehttp", "https://mcp.context7.com/mcp"]
 
 [mcp_servers.playwright]
-command = "/Users/henry/.codex/bin/playwright-mcp-worktree"
+command = "npx"
+args = ["@playwright/mcp@latest", "--extension"]
+
+[mcp_servers.playwright.env]
+PLAYWRIGHT_MCP_EXTENSION_TOKEN = "9Wrs6IO2xI3qqNU_riXrUAXtH94r9bDPBJccFeb7aKk"
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex"
+CODEX_HOME = "/Users/henry/.codex"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "89809670b247cbaffbc4f87d9fa9742a9038c0f4a06fb822d7f85ff19bf24215"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.609.71450"
+CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
 
 [projects."/Users/henry/coding/zereal/datalift"]
 trust_level = "trusted"
@@ -64,5 +93,174 @@ trust_level = "trusted"
 [projects."/Users/henry/.codex"]
 trust_level = "trusted"
 
+[projects."/Users/henry/imc"]
+trust_level = "trusted"
+
+[projects."/Users/henry/imc/polaris"]
+trust_level = "trusted"
+
+[projects."/Users/henry/imc/autoingest"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-04-30/process-mine-all-codex-jsonl-logs"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-04/how-can-i-make-a-skill"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-05/i-have-this-problem-can-you"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-06/linear-linear-users-henry-codex-plugins"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-07/files-mentioned-by-the-user-saco"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-11/go-through-all-my-system-caches"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-11/where-in-https-github-com-openai"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-12/what-does-this-line-mean-image"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-13/why-is-it-that-i-can"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-13/how-could-this-be-minified-but"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-14/is-there-a-way-to-use"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-14/is-there-a-variant-of-the"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-14/is-there-a-builtin-tool-in"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-15/https-www-vita34-at-namenslisten-vornamen"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-15/in-meiner-dropbox-sehe-ich-diese"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/betterag"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-05-16/read-users-henry-downloads-vornamen-ma"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-02/are-there-any-public-servers-i"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-03/run-users-henry-coding-private-sh"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-03/puxplaying-starshell-https-github-com-puxplaying"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/sh-send"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-04/look-at-my-hard-drive-and"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-04/upgrade-node-on-my-mac"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-12/files-mentioned-by-the-user-codex"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-12/mache-mir-einen-gutschein-als-pdf"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-12/download-all-images-to-downloads-bilder"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/thinkingrocks"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-15/i-have-the-app-superwhisper-installed"]
+trust_level = "trusted"
+
+[projects."/"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-15/find-the-longest-recording-in-here"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-16/files-mentioned-by-the-user-codex"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-16/is-it-possible-to-load-this"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-16/i-use-crossover-to-run-age"]
+trust_level = "trusted"
+
+[projects."/Users/henry/.pi"]
+trust_level = "trusted"
+
 [features]
 multi_agent = true
+goals = true
+js_repl = false
+
+[marketplaces.openai-bundled]
+last_updated = "2026-06-16T14:54:02Z"
+source_type = "local"
+source = "/Users/henry/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-06-15T00:41:46Z"
+source_type = "local"
+source = "/Users/henry/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."linear@openai-curated"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[hooks.state]
+
+[hooks.state."/Users/henry/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:6ff04b4ba916e714f3a159bab5aa40de3c9d6d7e5d0f5be7ee2a3c913bce3c8d"
+
+[hooks.state."/Users/henry/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:05d04052b206cc46865b4aa9b8b6b8df7ec37728174b6355de273b264edd21b1"
+
+[hooks.state."/Users/henry/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:1a550b77b1bfa681c2a98502605d74886802dc4ac12a1d946c9f5065bd49c103"
+
+[desktop]
+defaultTerminalLocation = "bottom"
+dock-icon-preference = "app-default"
+show-context-window-usage = true
+
+[desktop.open-in-target-preferences]
+global = "vscode"
+
+[desktop.open-in-target-preferences.perPath]
+"/Users/henry/coding/trading/fuzzytrade" = "vscode"
+"/Users/henry/coding/zereal/datalift" = "vscode"
+"/Users/henry/coding/zereal/table-ai" = "vscode"
+
+[[skills.config]]
+name = "gmail:gmail"
+enabled = false

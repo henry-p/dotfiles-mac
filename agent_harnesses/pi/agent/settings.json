@@ -9,5 +9,6 @@
     "npm:pi-web-access",
     "npm:@dreki-gg/pi-context7",
     "git:https://github.com/hasit/pi-community-themes"
-  ]
+  ],
+  "steeringMode": "all"
 }

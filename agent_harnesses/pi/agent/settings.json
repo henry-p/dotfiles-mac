@@ -1,0 +1,12 @@
+{
+  "lastChangelogVersion": "0.79.6",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "xhigh",
+  "enableInstallTelemetry": false,
+  "theme": "dark",
+  "packages": [
+    "npm:pi-web-access",
+    "npm:@dreki-gg/pi-context7"
+  ]
+}

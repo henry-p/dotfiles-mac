@@ -65,15 +65,19 @@ echo "⚙️  Setting up editor settings..."
 ./editors/setup.sh
 
 # ==========================================
-# CODING ASSISTANTS
+# AGENT HARNESSES
 # ==========================================
 echo ""
-echo "🤖 Setting up coding assistant configurations..."
+echo "🤖 Setting up agent harness configurations..."
 echo "=========================================="
 
 # Codex configuration
 echo "💡 Setting up Codex configuration..."
-./coding_assistants/codex/setup.sh
+./agent_harnesses/codex/setup.sh
+
+# Pi configuration
+echo "🥧 Setting up Pi configuration..."
+./agent_harnesses/pi/setup.sh
 
 # ==========================================
 # COMPLETION

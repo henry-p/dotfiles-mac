@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+"""Sync ~/.pi/agent/models.json lmstudio models from LM Studio /v1/models.
+
+Usage:
+  sync-lmstudio-models
+
+Optional env vars:
+  LMSTUDIO_BASE_URL             e.g. http://localhost:1234/v1
+  PI_MODELS_FILE                path to models.json (default ~/.pi/agent/models.json)
+  PI_PROVIDER_NAME              provider key in models.json (default lmstudio)
+  LMSTUDIO_HOME                 path to LM Studio config directory (default ~/.lmstudio)
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import sys
+from pathlib import Path
+from urllib.request import urlopen, Request
+from urllib.error import URLError, HTTPError
+
+BASE_URL = os.getenv("LMSTUDIO_BASE_URL", "http://localhost:1234/v1").rstrip("/")
+MODELS_FILE = Path(os.getenv("PI_MODELS_FILE", str(Path.home() / ".pi" / "agent" / "models.json")))
+PROVIDER = os.getenv("PI_PROVIDER_NAME", "lmstudio")
+LM_STUDIO_HOME = Path(os.getenv("LMSTUDIO_HOME", Path(os.getenv("HOME", ".")) / ".lmstudio"))
+LM_STUDIO_CONFIG_DIR = LM_STUDIO_HOME / ".internal" / "user-concrete-model-default-config"
+
+KNOWN_MODELS = {
+    "google/gemma-4-e4b": {
+        "name": "Gemma 4 E4B (LM Studio)",
+        "input": ["text", "image"],
+        "contextWindow": 131072,
+        "maxTokens": 8192,
+    },
+    "google/gemma-4-12b": {
+        "name": "Gemma 4 12B (LM Studio)",
+        "input": ["text"],
+        "contextWindow": 32768,
+        "maxTokens": 8192,
+    },
+}
+
+
+def read_context_length(model_id: str) -> int | None:
+    """Load LM Studio per-model contextLength from local user config, if available."""
+    parts = model_id.split("/")
+    cfg_path = LM_STUDIO_CONFIG_DIR.joinpath(*parts).with_suffix(".json")
+    try:
+        raw = cfg_path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError:
+        return None
+
+    fields = payload.get("load", {}).get("fields")
+    if not isinstance(fields, list):
+        return None
+
+    for field in fields:
+        if not isinstance(field, dict) or field.get("key") != "llm.load.contextLength":
+            continue
+        value = field.get("value")
+        if isinstance(value, int):
+            return value
+        if isinstance(value, dict) and isinstance(value.get("value"), int):
+            return value["value"]
+
+    return None
+
+
+def is_embedding_model(model_id: str) -> bool:
+    return "embed" in model_id.lower()
+
+
+def build_default_entry(model_id: str, preserve: dict | None = None) -> dict:
+    default = {
+        "id": model_id,
+        **KNOWN_MODELS.get(model_id, {"name": model_id}),
+    }
+
+    context_length = read_context_length(model_id)
+    if context_length is not None:
+        default["contextWindow"] = context_length
+
+    if "input" not in default:
+        default["input"] = ["text"]
+    if "contextWindow" not in default:
+        default["contextWindow"] = 128000
+    if "maxTokens" not in default:
+        default["maxTokens"] = 8192
+
+    if not isinstance(preserve, dict):
+        return default
+
+    merged = dict(preserve)
+    merged["id"] = model_id
+    merged["name"] = merged.get("name", default["name"])
+    merged["input"] = merged.get("input", default["input"])
+    merged["reasoning"] = merged.get("reasoning", default.get("reasoning", False))
+    merged["contextWindow"] = default["contextWindow"]
+    merged["maxTokens"] = merged.get("maxTokens", default["maxTokens"])
+
+    return merged
+
+def main() -> int:
+    try:
+        req = Request(f"{BASE_URL}/models")
+        with urlopen(req, timeout=10) as response:
+            payload = json.load(response)
+    except (URLError, HTTPError, OSError) as error:
+        print(f"Failed to fetch models from {BASE_URL}: {error}", file=sys.stderr)
+        return 1
+
+    remote_ids = [
+        item.get("id")
+        for item in payload.get("data", [])
+        if isinstance(item, dict) and item.get("id")
+    ]
+
+    if not remote_ids:
+        print("No models found from LM Studio endpoint.", file=sys.stderr)
+        return 1
+
+    try:
+        models_cfg = json.loads(MODELS_FILE.read_text())
+    except OSError as error:
+        print(f"Unable to read {MODELS_FILE}: {error}", file=sys.stderr)
+        return 1
+
+    providers = models_cfg.setdefault("providers", {})
+    provider_cfg = providers.get(PROVIDER)
+    if not isinstance(provider_cfg, dict):
+        print(f"Provider '{PROVIDER}' not found in {MODELS_FILE}", file=sys.stderr)
+        return 1
+
+    existing_models = [
+        model
+        for model in provider_cfg.get("models", [])
+        if isinstance(model, dict) and model.get("id")
+    ]
+    existing_by_id = {model["id"]: model for model in existing_models}
+
+    synced_models = []
+    for model_id in remote_ids:
+        if is_embedding_model(model_id):
+            continue
+
+        existing = existing_by_id.get(model_id)
+        synced_models.append(build_default_entry(model_id, preserve=existing))
+
+    provider_cfg["models"] = synced_models
+
+    try:
+        MODELS_FILE.write_text(json.dumps(models_cfg, indent=2) + "\n")
+    except OSError as error:
+        print(f"Unable to write {MODELS_FILE}: {error}", file=sys.stderr)
+        return 1
+
+    print(f"Synced {len(synced_models)} lmstudio model(s) in {MODELS_FILE}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

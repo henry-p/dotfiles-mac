@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+lms server start >/dev/null
+lms unload --all >/dev/null 2>&1 || true
+lms load google/gemma-4-e4b \
+  -c 131072 \
+  --parallel 1 \
+  --identifier google/gemma-4-e4b \
+  -y

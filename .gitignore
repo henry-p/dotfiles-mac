@@ -35,3 +35,26 @@ terminals/iterm2/*.bak
 
 # Local secrets
 zsh/secrets.zsh
+
+# Pi dotfiles: ignore everything by default, then allow only managed config/resources
+agent_harnesses/pi/agent/*
+
+!agent_harnesses/pi/agent/settings.json
+!agent_harnesses/pi/agent/models.json
+!agent_harnesses/pi/agent/keybindings.json
+
+!agent_harnesses/pi/agent/prompts/
+!agent_harnesses/pi/agent/prompts/**
+!agent_harnesses/pi/agent/extensions/
+!agent_harnesses/pi/agent/extensions/**
+!agent_harnesses/pi/agent/skills/
+!agent_harnesses/pi/agent/skills/**
+!agent_harnesses/pi/agent/themes/
+!agent_harnesses/pi/agent/themes/**
+!agent_harnesses/pi/agent/extensions-disabled/
+!agent_harnesses/pi/agent/extensions-disabled/**
+
+!agent_harnesses/pi/agent/bin/
+!agent_harnesses/pi/agent/bin/**
+agent_harnesses/pi/agent/bin/__pycache__/
+agent_harnesses/pi/agent/bin/**/*.pyc

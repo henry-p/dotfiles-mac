@@ -1,0 +1,251 @@
+#!/usr/bin/env node
+
+import { execFileSync } from 'node:child_process';
+
+const args = process.argv.slice(2);
+
+function usage(exitCode = 0) {
+  console.log(`Usage:
+  web search "query" [-n 5] [--content]
+  web fetch <url>
+
+Notes:
+  - Uses BRAVE_API_KEY if present.
+  - Uses JINA_API_KEY search if present.
+  - Otherwise falls back to scraped Yahoo results, then Wikipedia search.
+  - Always inspect/cite returned URLs; do not claim a search succeeded if this command fails.`);
+  process.exit(exitCode);
+}
+
+function stripTags(s) {
+  return decodeHtml(String(s || '').replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+}
+
+function decodeHtml(s) {
+  const named = {
+    amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', ndash: '–', mdash: '—', hellip: '…'
+  };
+  return String(s || '').replace(/&(#x?[0-9a-fA-F]+|[a-zA-Z][a-zA-Z0-9]+);/g, (_, ent) => {
+    if (ent[0] === '#') {
+      const hex = ent[1]?.toLowerCase() === 'x';
+      const n = parseInt(ent.slice(hex ? 2 : 1), hex ? 16 : 10);
+      return Number.isFinite(n) ? String.fromCodePoint(n) : `&${ent};`;
+    }
+    return Object.prototype.hasOwnProperty.call(named, ent) ? named[ent] : `&${ent};`;
+  });
+}
+
+function decodeYahooUrl(url) {
+  url = decodeHtml(url);
+  const m = url.match(/\/RU=([^/]+)\/RK=/);
+  if (m) {
+    try { return decodeURIComponent(m[1]); } catch {}
+  }
+  return url;
+}
+
+function absolutize(url) {
+  if (!url) return url;
+  if (url.startsWith('//')) return `https:${url}`;
+  if (url.startsWith('/')) return `https://search.yahoo.com${url}`;
+  return url;
+}
+
+async function fetchText(url, options = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 20000);
+  try {
+    const res = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+      headers: {
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120 Safari/537.36',
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,application/json;q=0.8,*/*;q=0.7',
+        ...(options.headers || {}),
+      },
+    });
+    const body = await res.text();
+    if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}: ${body.slice(0, 500)}`);
+    return body;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function printResults(results, backend) {
+  console.log(`Search backend: ${backend}`);
+  console.log(`Fetched at: ${new Date().toISOString()}`);
+  console.log('');
+  if (!results.length) {
+    console.log('No results found.');
+    return;
+  }
+  results.forEach((r, i) => {
+    console.log(`--- Result ${i + 1} ---`);
+    console.log(`Title: ${r.title}`);
+    console.log(`Link: ${r.link}`);
+    if (r.age) console.log(`Age: ${r.age}`);
+    if (r.snippet) console.log(`Snippet: ${r.snippet}`);
+    if (r.content) console.log(`Content:\n${r.content}`);
+    console.log('');
+  });
+}
+
+function parseOptions(rest) {
+  let n = 5;
+  let content = false;
+  const queryParts = [];
+  for (let i = 0; i < rest.length; i++) {
+    const a = rest[i];
+    if (a === '-n' && rest[i + 1]) {
+      n = Math.max(1, Math.min(20, parseInt(rest[++i], 10) || 5));
+    } else if (a === '--content') {
+      content = true;
+    } else if (a === '--freshness' || a === '--country') {
+      i++; // accepted for compatibility; ignored by fallback backends
+    } else {
+      queryParts.push(a);
+    }
+  }
+  return { query: queryParts.join(' ').trim(), n, content };
+}
+
+async function braveSearch(query, n) {
+  const params = new URLSearchParams({ q: query, count: String(Math.min(n, 20)), country: 'US' });
+  const data = JSON.parse(await fetchText(`https://api.search.brave.com/res/v1/web/search?${params}`, {
+    headers: {
+      accept: 'application/json',
+      'X-Subscription-Token': process.env.BRAVE_API_KEY,
+    },
+  }));
+  return (data.web?.results || []).slice(0, n).map(r => ({
+    title: stripTags(r.title || ''),
+    link: r.url || '',
+    age: r.age || r.page_age || '',
+    snippet: stripTags(r.description || ''),
+  }));
+}
+
+async function jinaSearch(query, n) {
+  const text = await fetchText(`https://s.jina.ai/${encodeURIComponent(query)}`, {
+    headers: { authorization: `Bearer ${process.env.JINA_API_KEY}` },
+  });
+  const lines = text.split(/\r?\n/);
+  const results = [];
+  let cur = null;
+  for (const line of lines) {
+    const title = line.match(/^Title:\s*(.*)/i);
+    const url = line.match(/^URL:\s*(.*)/i);
+    const desc = line.match(/^Description:\s*(.*)/i);
+    if (title) {
+      if (cur?.title || cur?.link) results.push(cur);
+      cur = { title: title[1].trim(), link: '', snippet: '' };
+    } else if (url && cur) {
+      cur.link = url[1].trim();
+    } else if (desc && cur) {
+      cur.snippet = desc[1].trim();
+    }
+  }
+  if (cur?.title || cur?.link) results.push(cur);
+  return results.filter(r => r.title && r.link).slice(0, n);
+}
+
+function curlText(url) {
+  return execFileSync('/usr/bin/curl', [
+    '-sS', '-L', '--max-time', '20',
+    '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120 Safari/537.36',
+    url,
+  ], { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
+}
+
+async function yahooSearch(query, n) {
+  const url = `https://search.yahoo.com/search?p=${encodeURIComponent(query)}&ei=UTF-8`;
+  const html = curlText(url);
+  if (/captcha|unusual traffic|verify you are human|robot/i.test(html)) throw new Error('Yahoo returned an anti-bot page');
+  const results = [];
+  const seen = new Set();
+  const itemRe = /<li\b[\s\S]*?(?=<li\b|<\/ol>|$)/gi;
+  let m;
+  while ((m = itemRe.exec(html)) && results.length < n) {
+    const block = m[0];
+    let match = block.match(/<a\b[^>]*href="([^"]+)"[^>]*>[\s\S]*?<h3\b[\s\S]*?>([\s\S]*?)<\/h3>[\s\S]*?<\/a>/i)
+      || block.match(/<h3\b[^>]*>[\s\S]*?<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>[\s\S]*?<\/h3>/i);
+    if (!match) continue;
+    const title = stripTags(match[2]);
+    let link = decodeYahooUrl(absolutize(match[1]));
+    if (!title || !/^https?:\/\//i.test(link)) continue;
+    if (/^(Images|Videos|News|Top Stories|People also search|Profiles|Quick facts)$/i.test(title)) continue;
+    if (/search\.yahoo\.com\/search|images\.search\.yahoo\.com/i.test(link)) continue;
+    const key = `${title}\n${link}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const sm = block.match(/<p\b[^>]*>([\s\S]*?)<\/p>/i) || block.match(/<div\b[^>]*class="[^"]*compText[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
+    results.push({ title, link, snippet: sm ? stripTags(sm[1]) : '' });
+  }
+  if (!results.length) throw new Error('Could not parse Yahoo results');
+  return results;
+}
+
+async function wikipediaSearch(query, n) {
+  const params = new URLSearchParams({ action: 'query', list: 'search', srsearch: query, srlimit: String(n), format: 'json', origin: '*' });
+  const data = JSON.parse(await fetchText(`https://en.wikipedia.org/w/api.php?${params}`, { headers: { accept: 'application/json' } }));
+  return (data.query?.search || []).map(r => ({
+    title: r.title,
+    link: `https://en.wikipedia.org/wiki/${encodeURIComponent(r.title.replace(/ /g, '_'))}`,
+    snippet: stripTags(r.snippet || ''),
+  }));
+}
+
+async function fetchReadable(url) {
+  if (!/^https?:\/\//i.test(url)) throw new Error('fetch requires an http(s) URL');
+  const target = `https://r.jina.ai/http://${url}`;
+  return fetchText(target, { headers: { 'x-no-cache': 'true' }, timeoutMs: 30000 });
+}
+
+async function search(rest) {
+  const { query, n, content } = parseOptions(rest);
+  if (!query) usage(1);
+  const attempts = [];
+  if (process.env.BRAVE_API_KEY) attempts.push(['brave', () => braveSearch(query, n)]);
+  if (process.env.JINA_API_KEY) attempts.push(['jina-search', () => jinaSearch(query, n)]);
+  attempts.push(['yahoo', () => yahooSearch(query, n)]);
+  attempts.push(['wikipedia-fallback', () => wikipediaSearch(query, n)]);
+
+  let lastErr;
+  for (const [backend, fn] of attempts) {
+    try {
+      const results = await fn();
+      if (content) {
+        for (const r of results) {
+          try { r.content = (await fetchReadable(r.link)).slice(0, 5000); }
+          catch (e) { r.content = `(content fetch failed: ${e.message})`; }
+        }
+      }
+      printResults(results, backend);
+      return;
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  console.error(`Search failed: ${lastErr?.message || 'unknown error'}`);
+  process.exit(1);
+}
+
+async function main() {
+  const cmd = args.shift();
+  if (!cmd || cmd === '-h' || cmd === '--help' || cmd === 'help') usage(0);
+  if (cmd === 'search') return search(args);
+  if (cmd === 'fetch' || cmd === 'content') {
+    const url = args[0];
+    if (!url) usage(1);
+    console.log(await fetchReadable(url));
+    return;
+  }
+  // Make `web "query"` act like search, but prefer explicit `web search`.
+  return search([cmd, ...args]);
+}
+
+main().catch(e => {
+  console.error(`web: ${e.message}`);
+  process.exit(1);
+});

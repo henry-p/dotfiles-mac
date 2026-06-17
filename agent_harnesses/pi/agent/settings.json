@@ -4,9 +4,10 @@
   "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "xhigh",
   "enableInstallTelemetry": false,
-  "theme": "dark",
+  "theme": "gruvbox-dark-soft",
   "packages": [
     "npm:pi-web-access",
-    "npm:@dreki-gg/pi-context7"
+    "npm:@dreki-gg/pi-context7",
+    "git:https://github.com/hasit/pi-community-themes"
   ]
 }

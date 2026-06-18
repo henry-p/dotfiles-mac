@@ -201,7 +201,7 @@ run = "move-node-to-workspace 3"
 # Codex App
 [[on-window-detected]]
 if.app-id = "com.openai.codex"
-run = "move-node-to-workspace 3"
+run = "move-node-to-workspace 2"
 
 # VSCode
 [[on-window-detected]]

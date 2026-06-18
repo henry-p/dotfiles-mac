@@ -47,6 +47,8 @@ agent_harnesses/pi/agent/*
 !agent_harnesses/pi/agent/prompts/**
 !agent_harnesses/pi/agent/extensions/
 !agent_harnesses/pi/agent/extensions/**
+agent_harnesses/pi/agent/extensions/**/cache/
+
 !agent_harnesses/pi/agent/skills/
 !agent_harnesses/pi/agent/skills/**
 !agent_harnesses/pi/agent/themes/

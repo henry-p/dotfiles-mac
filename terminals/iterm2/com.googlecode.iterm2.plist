@@ -17,9 +17,9 @@
 	<key>AIVectorStore</key>
 	<integer>0</integer>
 	<key>AiMaxTokens</key>
-	<integer>400000</integer>
+	<integer>1050000</integer>
 	<key>AiModel</key>
-	<string>gpt-5.1</string>
+	<string>gpt-5.5</string>
 	<key>AiResponseMaxTokens</key>
 	<integer>128000</integer>
 	<key>AitermURL</key>
@@ -2105,6 +2105,8 @@
 			<string>/Users/henry</string>
 		</dict>
 	</array>
+	<key>PassOnControlClick</key>
+	<false/>
 	<key>PasteSpecialChunkDelay</key>
 	<real>0.01</real>
 	<key>PasteSpecialChunkSize</key>
@@ -2151,6 +2153,10 @@
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
 	<true/>
 	<key>Print In Black And White</key>
+	<true/>
+	<key>ReportHorizontalScrollEvents</key>
+	<true/>
+	<key>ReportRightClick</key>
 	<true/>
 	<key>SeparateStatusBarsPerPane</key>
 	<false/>

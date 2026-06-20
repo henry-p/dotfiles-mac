@@ -27,8 +27,13 @@ export TMUX_TMPDIR="$HOME/.tmux"
 mkdir -p "$TMUX_TMPDIR"
 chmod 700 "$TMUX_TMPDIR"
 # Start tmux automatically upon SSH connect
-if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
-  tmux attach || tmux new -s coding
+# if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
+#   tmux attach || tmux new -s coding
+# fi
+
+# herdr
+if [ -n "$SSH_CONNECTION" ]; then
+  herdr
 fi
 
 # NVM

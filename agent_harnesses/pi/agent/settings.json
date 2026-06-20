@@ -1,14 +1,16 @@
 {
-  "lastChangelogVersion": "0.79.7",
+  "lastChangelogVersion": "0.79.8",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "xhigh",
   "enableInstallTelemetry": false,
-  "theme": "gruvbox-dark-soft",
+  "theme": "light",
   "packages": [
     "npm:pi-web-access",
     "npm:@dreki-gg/pi-context7",
-    "git:https://github.com/hasit/pi-community-themes"
+    "git:https://github.com/hasit/pi-community-themes",
+    "npm:pi-subagents",
+    "npm:pi-gstack"
   ],
   "steeringMode": "all"
 }

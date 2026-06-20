@@ -32,7 +32,11 @@ echo "=========================================="
 
 # Aerospace window manager
 echo "📱 Setting up Aerospace configuration..."
-./aerospace/setup.sh
+./window_managers/aerospace/setup.sh
+
+# OmniWM window manager
+echo "🪟 Setting up OmniWM configuration..."
+./window_managers/omniwm/setup.sh
 
 # ==========================================
 # TERMINAL CONFIGURATIONS

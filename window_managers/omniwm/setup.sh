@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script to set up OmniWM configuration
-# Links dotfiles-mac/window_managers/omniwm to $HOME/.config/omniwm
+# Links dotfiles-mac/window_managers/omniwm/.omniwm-linked to $HOME/.config/omniwm
 
 # Change to the script directory
 cd "$(dirname "$0")"
@@ -10,7 +10,7 @@ cd "$(dirname "$0")"
 source ../../utils/symlinks.sh
 
 # Link the whole config directory so OmniWM GUI saves rewrite files inside the repo
-source_path="$(get_dotfiles_dir)/window_managers/omniwm"
+source_path="$(get_dotfiles_dir)/window_managers/omniwm/.omniwm-linked"
 target_path="$HOME/.config/omniwm"
 
 create_relative_symlink "$source_path" "$target_path"

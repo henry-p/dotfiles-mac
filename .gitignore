@@ -36,6 +36,14 @@ terminals/iterm2/*.bak
 # Local secrets
 zsh/secrets.zsh
 
+# Codex app runtime: ~/.codex is directory-symlinked into this repo.
+# Ignore runtime state by default; track only intentional config/helpers.
+agent_harnesses/codex/.codex-linked/**
+!agent_harnesses/codex/.codex-linked/
+!agent_harnesses/codex/.codex-linked/config.toml
+!agent_harnesses/codex/.codex-linked/bin/
+!agent_harnesses/codex/.codex-linked/bin/**
+
 # Pi dotfiles: ignore everything by default, then allow only managed config/resources
 agent_harnesses/pi/agent/*
 

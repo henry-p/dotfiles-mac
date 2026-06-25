@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.79.8",
+  "lastChangelogVersion": "0.80.2",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "xhigh",
@@ -10,7 +10,9 @@
     "npm:@dreki-gg/pi-context7",
     "git:https://github.com/hasit/pi-community-themes",
     "npm:pi-subagents",
-    "npm:pi-gstack"
+    "npm:pi-gstack",
+    "local/impeccable",
+    "npm:pi-rtk-optimizer"
   ],
   "steeringMode": "all"
 }

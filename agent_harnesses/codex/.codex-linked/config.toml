@@ -1,0 +1,134 @@
+
+model = "gpt-5.5"
+model_reasoning_effort = "xhigh"
+
+notify = ["/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+
+[marketplaces.openai-bundled]
+last_updated = "2026-06-20T11:07:47Z"
+source_type = "local"
+source = "/Users/henry/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-06-24T05:42:37Z"
+source_type = "local"
+source = "/Users/henry/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[features]
+hooks = true
+js_repl = false
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex"
+CODEX_HOME = "/Users/henry/.codex"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "5504c0782b5c86b7dd08314045b9843e973a230e1be8f7e2e0ba3716fc63c55e"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.616.81150"
+CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+
+[projects."/Users/henry/Documents/Codex/2026-06-17/one-of-my-usb-c-hubs"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/worldmodels"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/dotfiles-mac"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-18/files-mentioned-by-the-user-codex"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-19/i"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-20/how-does-mario-zechner-the-inventor"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/dropbox-to-icloud"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-20/i-j"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-21/explain-the-concept-of-a-tweetstorm"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-21/cd-users-henry-pictures-photos-library"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-22/ze"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-06-25/flow-saco-fn-get-customer-tariff"]
+trust_level = "trusted"
+
+[hooks.state]
+
+[hooks.state."/Users/henry/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:6ff04b4ba916e714f3a159bab5aa40de3c9d6d7e5d0f5be7ee2a3c913bce3c8d"
+
+[hooks.state."/Users/henry/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:1a550b77b1bfa681c2a98502605d74886802dc4ac12a1d946c9f5065bd49c103"
+
+[hooks.state."/Users/henry/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:05d04052b206cc46865b4aa9b8b6b8df7ec37728174b6355de273b264edd21b1"
+
+[hooks.state."/Users/henry/.codex/hooks.json:session_start:1:0"]
+trusted_hash = "sha256:b928d0b31f3c085e799ee7ba770d28c54dfbb27bc79af466c939f9cac4a4fec6"
+
+[hooks.state."/Users/henry/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:9b3aaae7107e2592c0c891d19da4abfc2ba6100372e9ec9b0338e95ee06c61e5"
+
+[hooks.state."/Users/henry/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:dc3b9f2c80c5e770377ef306e0581064aebd057bd181d6923262e040f7be0860"
+
+[hooks.state."/Users/henry/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:20e42019cbb87d2650f0dd5c22b89b0a45a954b65f55d0aa09113212725446e3"
+
+[hooks.state."/Users/henry/.codex/hooks.json:user_prompt_submit:1:0"]
+trusted_hash = "sha256:7d4368bbafc1d4dcc43578456dbefddb384418737cbf9fc3bf3299d43247674e"
+
+[hooks.state."/Users/henry/.codex/hooks.json:stop:1:0"]
+trusted_hash = "sha256:19e5880192dae9cb8c23571c40d71f838f8f45d829ecfd563b3c0e0e4aad4ae4"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 2
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[desktop.open-in-target-preferences]
+global = "vscode"
+
+[desktop.open-in-target-preferences.perPath]
+"/Users/henry/coding/private/worldmodels" = "fileManager"
+"/Users/henry/Documents/Codex/2026-06-20/i-j" = "vscode"

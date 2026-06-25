@@ -40,7 +40,7 @@ moveCrossesMonitorAtEdge = false
 moveMouseToFocusedWindow = false
 
 [gaps]
-size = 2.0
+size = 8.0
 
 [gaps.outer]
 bottom = 0.0
@@ -279,11 +279,11 @@ binding = "Option+Shift+Y"
 id = "moveToWorkspace.7"
 
 [[hotkeys]]
-binding = "Option+P"
+binding = "Option+S"
 id = "switchWorkspace.8"
 
 [[hotkeys]]
-binding = "Option+Shift+P"
+binding = "Option+Shift+S"
 id = "moveToWorkspace.8"
 
 [[hotkeys]]
@@ -471,7 +471,7 @@ binding = "Control+Command+Grave"
 id = "focusMonitorLast"
 
 [[hotkeys]]
-binding = "Option+Return"
+binding = "Control+Option+Return"
 id = "toggleFullscreen"
 
 [[hotkeys]]
@@ -860,19 +860,10 @@ name = "8"
 type = "main"
 
 [[workspaces]]
-displayName = "P"
+displayName = "S"
 id = "FDC1A52F-D6A6-4E82-9535-391217200250"
 layoutType = "niri"
 name = "9"
-
-[workspaces.monitorAssignment]
-type = "main"
-
-[[workspaces]]
-displayName = "S"
-id = "46855782-F28E-47CF-8DFC-17605E95499A"
-layoutType = "niri"
-name = "11"
 
 [workspaces.monitorAssignment]
 type = "secondary"

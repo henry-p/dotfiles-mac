@@ -2,16 +2,14 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CONFIG_SOURCE="${SCRIPT_DIR}/config.toml"
-TARGET_DIR="${HOME}/.codex"
-TARGET_PATH="${TARGET_DIR}/config.toml"
+CODEX_SOURCE="${SCRIPT_DIR}/.codex-linked"
+TARGET_PATH="${HOME}/.codex"
 
-mkdir -p "${TARGET_DIR}"
+source "${SCRIPT_DIR}/../../utils/symlinks.sh"
 
-if [ -e "${TARGET_PATH}" ] || [ -L "${TARGET_PATH}" ]; then
-  rm -f "${TARGET_PATH}"
+if [ ! -d "${CODEX_SOURCE}" ]; then
+  echo "Missing Codex source directory: ${CODEX_SOURCE}" >&2
+  exit 1
 fi
 
-ln -s "${CONFIG_SOURCE}" "${TARGET_PATH}"
-
-echo "Created symlink: ${TARGET_PATH} -> ${CONFIG_SOURCE}"
+create_relative_symlink "${CODEX_SOURCE}" "${TARGET_PATH}"

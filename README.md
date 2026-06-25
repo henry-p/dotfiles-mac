@@ -28,6 +28,7 @@ bash window_managers/omniwm/setup.sh    # OmniWM window manager
 bash tmux/setup.sh      # tmux configuration
 bash zsh/setup.sh       # zsh configuration
 bash editors/setup.sh   # Editor configurations
+bash agent_harnesses/codex/setup.sh # Codex configuration
 ```
 
 ## zsh Local Secrets
@@ -49,6 +50,17 @@ To create a fresh secrets file, start from:
 cp zsh/secrets.example.zsh zsh/secrets.zsh
 bash zsh/setup.sh
 ```
+
+## Codex Settings
+
+Codex is managed with a directory symlink because the app rewrites `config.toml`
+atomically:
+
+- repo path: `agent_harnesses/codex/.codex-linked/`
+- live path: `~/.codex`
+
+The repo ignores Codex runtime state by default and tracks only the intentional
+files: `.codex-linked/config.toml` and `.codex-linked/bin/`.
 
 ## Editor Settings Management
 
@@ -229,8 +241,10 @@ ls -la ~/Library/Application\ Support/Cursor/User/
 ~/coding/private/dotfiles-mac/
 ├── window_managers/
 │   ├── aerospace/
+│   │   ├── .aerospace-linked/ # Symlink payload for ~/.aerospace.toml
 │   │   └── setup.sh      # Aerospace window manager setup
 │   └── omniwm/
+│       ├── .omniwm-linked/ # Symlink target for ~/.config/omniwm
 │       └── setup.sh      # OmniWM window manager setup
 ├── tmux/
 │   ├── .tmux.conf        # tmux configuration
@@ -246,6 +260,10 @@ ls -la ~/Library/Application\ Support/Cursor/User/
 │   ├── sync-extensions.sh # Bidirectional extension sync
 │   ├── unlink.sh         # Remove editor symlinks
 │   └── vscode/User/      # VS Code settings (shared by Cursor)
+├── agent_harnesses/
+│   └── codex/
+│       ├── .codex-linked/ # Symlink target for ~/.codex
+│       └── setup.sh      # Codex setup
 ├── macos/
 │   └── setup.sh          # macOS system settings only
 ├── utils/

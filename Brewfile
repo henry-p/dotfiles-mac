@@ -480,8 +480,6 @@ cask "sourcetree"
 cask "spotify"
 # Video game digital distribution service
 cask "steam"
-# Terminal for orchestrating agents
-cask "superset"
 # Dictation tool including LLM reformatting
 cask "superwhisper"
 # Mesh VPN based on WireGuard

@@ -154,5 +154,6 @@
     "security.promptForLocalFileProtocolHandling": false,
     "git.openRepositoryInParentFolders": "never",
     "editor.unicodeHighlight.invisibleCharacters": false,
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "editor.accessibilitySupport": "off"
 }

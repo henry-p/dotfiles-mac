@@ -1,3 +1,15 @@
+export PATH=/opt/homebrew/bin:$PATH
+
+# tmux
+# Make tmux use the same socket location in GUI + SSH
+export TMUX_TMPDIR="$HOME/.tmux"
+mkdir -p "$TMUX_TMPDIR"
+chmod 700 "$TMUX_TMPDIR"
+# Start tmux automatically upon interactive SSH connect before Powerlevel10k instant prompt.
+if [[ -n "$SSH_CONNECTION" && -n "$SSH_TTY" && -z "$TMUX" && -t 0 && -t 1 ]]; then
+  exec tmux new-session -A -s coding
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -5,7 +17,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export PATH=/opt/homebrew/bin:$PATH
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="$HOME/.gem/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -20,21 +31,6 @@ SAVEHIST=$HISTSIZE
 [[ -f "$HOME/.config/dotfiles/secrets.zsh" ]] && source "$HOME/.config/dotfiles/secrets.zsh"
 
 eval "$(rbenv init - zsh)"
-
-# tmux
-# Make tmux use the same socket location in GUI + SSH
-export TMUX_TMPDIR="$HOME/.tmux"
-mkdir -p "$TMUX_TMPDIR"
-chmod 700 "$TMUX_TMPDIR"
-# Start tmux automatically upon SSH connect
-# if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
-#   tmux attach || tmux new -s coding
-# fi
-
-# herdr
-if [ -n "$SSH_CONNECTION" ]; then
-  herdr
-fi
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -215,4 +211,3 @@ esac
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/henry/.lmstudio/bin"
 # End of LM Studio CLI section
-

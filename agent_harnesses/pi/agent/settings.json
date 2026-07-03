@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.80.2",
+  "lastChangelogVersion": "0.80.3",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "xhigh",
@@ -12,7 +12,9 @@
     "npm:pi-subagents",
     "npm:pi-gstack",
     "local/impeccable",
-    "npm:pi-rtk-optimizer"
+    "npm:pi-rtk-optimizer",
+    "npm:pi-openai-fast-mode",
+    "npm:@amaster.ai/pi-computer-use"
   ],
   "steeringMode": "all"
 }

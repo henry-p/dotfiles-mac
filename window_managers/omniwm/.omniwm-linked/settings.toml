@@ -36,6 +36,7 @@ useGlobalGaps = true
 crossesMonitorAtEdge = false
 followsMouse = false
 followsWindowToMonitor = false
+lockModifier = "off"
 moveCrossesMonitorAtEdge = false
 moveMouseToFocusedWindow = false
 
@@ -108,7 +109,7 @@ notchAware = true
 position = "overlappingMenuBar"
 reserveLayoutSpace = false
 showFloatingWindows = true
-showLabels = true
+showLabels = false
 windowLevel = "popup"
 xOffset = 0.0
 yOffset = 0.0
@@ -721,6 +722,14 @@ id = "resizeShrink.up"
 [[hotkeys]]
 binding = "Unassigned"
 id = "resizeShrink.down"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "resizeFocusedWindow.grow"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "resizeFocusedWindow.shrink"
 
 [[hotkeys]]
 binding = "Unassigned"

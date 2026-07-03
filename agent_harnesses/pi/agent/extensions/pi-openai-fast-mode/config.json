@@ -1,0 +1,25 @@
+{
+  "enabled": true,
+  "targets": [
+    {
+      "provider": "openai",
+      "model": "gpt-5.4",
+      "serviceTier": "priority"
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-5.5",
+      "serviceTier": "priority"
+    },
+    {
+      "provider": "openai-codex",
+      "model": "gpt-5.4",
+      "serviceTier": "priority"
+    },
+    {
+      "provider": "openai-codex",
+      "model": "gpt-5.5",
+      "serviceTier": "priority"
+    }
+  ]
+}

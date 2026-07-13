@@ -176,6 +176,11 @@ bundleId = "com.microsoft.teams2"
 id = "67B2BFC3-E63B-412B-A131-C1086675AEB5"
 
 [[appRules]]
+assignToWorkspace = "4"
+bundleId = "ru.keepcoder.Telegram"
+id = "22CBBBBE-A659-41E7-B359-396752EEFB8A"
+
+[[appRules]]
 assignToWorkspace = "5"
 bundleId = "com.apple.iCal"
 id = "38884AB2-3C4C-4FC1-96D6-D8773E7051B9"

@@ -1,6 +1,6 @@
 
-model = "gpt-5.5"
-model_reasoning_effort = "xhigh"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
 
 notify = ["/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 approval_policy = "never"
@@ -14,7 +14,7 @@ source_type = "local"
 source = "/Users/henry/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-01T06:42:07Z"
+last_updated = "2026-07-10T16:42:07Z"
 source_type = "local"
 source = "/Users/henry/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -33,15 +33,22 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_nod
 NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex"
 CODEX_HOME = "/Users/henry/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "cb79053fda6deb0f3b5d6f0d90d4257305ebdbd1e378a12e8fbc5bde782eb59b"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,e2cad16d8d9f60f09c9f0951ec7dfdd9e8f59dedd06045c0b6827dc8fa8322f0"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.623.81905"
+BROWSER_USE_CODEX_APP_VERSION = "26.707.62119"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
 
-[projects."/Users/henry/Documents/Codex/2026-06-17/one-of-my-usb-c-hubs"]
+[mcp_servers.computer-use]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
+enabled = false
+
+[projects."/Users/henry/Documents/Codex"]
 trust_level = "trusted"
 
 [projects."/Users/henry/coding/private/worldmodels"]
@@ -50,64 +57,13 @@ trust_level = "trusted"
 [projects."/Users/henry/coding/private/dotfiles-mac"]
 trust_level = "trusted"
 
-[projects."/Users/henry/Documents/Codex/2026-06-18/files-mentioned-by-the-user-codex"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-19/i"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-20/how-does-mario-zechner-the-inventor"]
-trust_level = "trusted"
-
 [projects."/Users/henry/Documents/dropbox-to-icloud"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-20/i-j"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-21/explain-the-concept-of-a-tweetstorm"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-21/cd-users-henry-pictures-photos-library"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-22/ze"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-25/flow-saco-fn-get-customer-tariff"]
 trust_level = "trusted"
 
 [projects."/Users/henry/coding/zereal/datalift"]
 trust_level = "trusted"
 
-[projects."/Users/henry/Documents/Codex/2026-06-25/gmail-plugin-gmail-openai-curated-remote"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-26/use"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-26/do-you-see-the-it-s"]
-trust_level = "trusted"
-
 [projects."/Users/henry/coding/zereal/changedesk"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-26/find-out-my-paseo-server-connect"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-27/quit-the-codex-app"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-27/edit-my-zshrc-to-open-tmux"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-28/i-h"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-29/upgr"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-06-29/how"]
 trust_level = "trusted"
 
 [projects."/Users/henry/coding/private/one-off-chats"]
@@ -119,53 +75,12 @@ trust_level = "trusted"
 [projects."/Users/henry/coding/private/pi-tools"]
 trust_level = "trusted"
 
-[projects."/Users/henry/Documents/Codex/2026-06-30/this-svg-file-consists-of-a"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-01/barutsrb-omniwm-https-github-com-barutsrb"]
-trust_level = "trusted"
-
 [projects."/Users/henry/coding/private/tools"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-01/i"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-01/volumes-freeagent-drive-daten-iphone-backups"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-01/co"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-01/ca"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-01/the"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-02/e"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-02/some"]
 trust_level = "trusted"
 
 [projects."/Users/henry/coding/zereal/table-ai"]
 trust_level = "trusted"
 
-[projects."/Users/henry/Documents/Codex/2026-07-02/i-unmounted-an-external-hard-drive"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-02/i-h"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-03/caqn"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-03/wha"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/Codex/2026-07-03/i-del"]
-trust_level = "trusted"
 
 [hooks.state]
 
@@ -199,9 +114,6 @@ trusted_hash = "sha256:19e5880192dae9cb8c23571c40d71f838f8f45d829ecfd563b3c0e0e4
 [tui.model_availability_nux]
 "gpt-5.5" = 2
 
-[plugins."browser@openai-bundled"]
-enabled = true
-
 [plugins."computer-use@openai-bundled"]
 enabled = true
 
@@ -220,13 +132,18 @@ enabled = true
 [plugins."template-creator@openai-primary-runtime"]
 enabled = true
 
+[plugins."chrome@openai-bundled"]
+enabled = true
+
 [desktop]
 followUpQueueMode = "queue"
 appshotSoundEnabled = true
+dock-icon-preference = "codex-system"
+conversationDetailMode = "STEPS_COMMANDS"
+usePointerCursors = false
 
 [desktop.open-in-target-preferences]
 global = "vscode"
 
 [desktop.open-in-target-preferences.perPath]
 "/Users/henry/coding/private/worldmodels" = "fileManager"
-"/Users/henry/Documents/Codex/2026-06-20/i-j" = "vscode"

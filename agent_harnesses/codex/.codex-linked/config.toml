@@ -1,12 +1,11 @@
-
-model = "gpt-5.6-sol"
-model_reasoning_effort = "medium"
+model = "gpt-5.6-luna"
+model_reasoning_effort = "low"
 
 notify = ["/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 approval_policy = "never"
 approvals_reviewer = "user"
 sandbox_mode = "danger-full-access"
-service_tier = "priority"
+service_tier = "default"
 
 [marketplaces.openai-bundled]
 last_updated = "2026-06-20T11:07:47Z"
@@ -14,7 +13,7 @@ source_type = "local"
 source = "/Users/henry/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-10T16:42:07Z"
+last_updated = "2026-07-16T07:42:10Z"
 source_type = "local"
 source = "/Users/henry/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -33,13 +32,14 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_nod
 NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex"
 CODEX_HOME = "/Users/henry/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,e2cad16d8d9f60f09c9f0951ec7dfdd9e8f59dedd06045c0b6827dc8fa8322f0"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "0b03c76c1d0f3d4c81f89f58ff210ae6709fd1204d2c5a4fdffa0a7bdb961b96,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.707.62119"
+BROWSER_USE_CODEX_APP_VERSION = "26.715.61943"
+SKY_CUA_SERVICE_PATH = "/Users/henry/.codex/plugins/cache/openai-bundled/computer-use/1.0.1000451/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
@@ -47,40 +47,6 @@ command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.
 args = ["mcp"]
 cwd = "."
 enabled = false
-
-[projects."/Users/henry/Documents/Codex"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/private/worldmodels"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/private/dotfiles-mac"]
-trust_level = "trusted"
-
-[projects."/Users/henry/Documents/dropbox-to-icloud"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal/datalift"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal/changedesk"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/private/one-off-chats"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal/landing"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/private/pi-tools"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/private/tools"]
-trust_level = "trusted"
-
-[projects."/Users/henry/coding/zereal/table-ai"]
-trust_level = "trusted"
-
 
 [hooks.state]
 
@@ -141,9 +107,62 @@ appshotSoundEnabled = true
 dock-icon-preference = "codex-system"
 conversationDetailMode = "STEPS_COMMANDS"
 usePointerCursors = false
+show-context-window-usage = true
 
 [desktop.open-in-target-preferences]
 global = "vscode"
 
 [desktop.open-in-target-preferences.perPath]
 "/Users/henry/coding/private/worldmodels" = "fileManager"
+
+[shell_environment_policy.set]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "0b03c76c1d0f3d4c81f89f58ff210ae6709fd1204d2c5a4fdffa0a7bdb961b96,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex"
+
+[projects]
+
+[projects."/Users/henry/Documents/Codex"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/worldmodels"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/dotfiles-mac"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/dropbox-to-icloud"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/zereal/datalift"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/zereal/changedesk"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/one-off-chats"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/zereal/landing"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/pi-tools"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/tools"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/zereal/table-ai"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/zereal/vibeps"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/saco"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/jff"]
+trust_level = "trusted"
+
+[projects."/Users/henry/.agents"]
+trust_level = "trusted"

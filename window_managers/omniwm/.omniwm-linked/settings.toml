@@ -67,8 +67,17 @@ scrollEnabled = true
 scrollModifierKey = "optionShift"
 scrollSensitivity = 5.0
 trackpadScrollStyle = "snap"
+workspaceSwipeAxis = "vertical"
+workspaceSwipeEnabled = false
+workspaceSwipeFingerCount = 3
+
+[hiddenBar]
+enabled = true
+hiddenBundleIDs = []
+rehideIntervalSeconds = 5.0
 
 [mouseWarp]
+constrainToArrangement = false
 enabled = true
 margin = 1
 
@@ -79,6 +88,35 @@ columnWidthPresets = [0.3333333333333333, 0.5, 0.6666666666666666]
 infiniteLoop = false
 maxVisibleColumns = 2
 singleWindowAspectRatio = "fill"
+
+[overview]
+zoom = 1.0
+
+[overview.backdrop]
+alpha = 1.0
+blue = 0.08
+green = 0.05
+red = 0.05
+
+[overview.windowBorders]
+
+[overview.windowBorders.hovered]
+alpha = 1.0
+blue = 1.0
+green = 0.6
+red = 0.4
+
+[overview.windowBorders.normal]
+alpha = 0.5
+blue = 0.35
+green = 0.3
+red = 0.3
+
+[overview.windowBorders.selected]
+alpha = 1.0
+blue = 0.4
+green = 0.8
+red = 0.3
 
 [quakeTerminal]
 animationDuration = 0.2
@@ -102,14 +140,20 @@ useWorkspaceId = false
 backgroundOpacity = 0.25
 deduplicateAppIcons = false
 enabled = true
+excludedBundleIDs = []
 height = 28.0
 hideEmptyWorkspaces = false
 labelFontSize = 12.0
+notchActiveZoneWidth = 180.0
 notchAware = true
+notchMode = "moveBelowMenuBar"
 position = "overlappingMenuBar"
 reserveLayoutSpace = false
+revealHoldMilliseconds = 200.0
+revealModifier = "off"
 showFloatingWindows = true
 showLabels = false
+systemStatsButton = false
 windowLevel = "popup"
 xOffset = 0.0
 yOffset = 0.0
@@ -133,6 +177,11 @@ id = "2DE9390B-0DB4-4D0C-9ABA-06F76F1D4EA9"
 assignToWorkspace = "3"
 bundleId = "com.googlecode.iterm2"
 id = "6DE47846-34CF-49BE-BE27-251FDAFD47DC"
+
+[[appRules]]
+assignToWorkspace = "2"
+bundleId = "com.mitchellh.ghostty"
+id = "CA664216-672F-4F6A-A8E9-22002C03E7E7"
 
 [[appRules]]
 assignToWorkspace = "2"
@@ -493,6 +542,14 @@ binding = "Control+Option+Shift+Right Arrow"
 id = "moveColumn.right"
 
 [[hotkeys]]
+binding = "Unassigned"
+id = "moveColumn.up"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveColumn.down"
+
+[[hotkeys]]
 binding = "Control+Option+Home"
 id = "moveColumnToFirst"
 
@@ -790,7 +847,7 @@ id = "toggleWorkspaceBarVisibility"
 
 [[hotkeys]]
 binding = "Unassigned"
-id = "toggleHiddenBar"
+id = "toggleHiddenBarPanel"
 
 [[hotkeys]]
 binding = "Option+Grave"
@@ -803,6 +860,10 @@ id = "toggleWorkspaceLayout"
 [[hotkeys]]
 binding = "Unassigned"
 id = "toggleOverview"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleSystemStats"
 
 [[workspaces]]
 id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"

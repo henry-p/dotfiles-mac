@@ -1,5 +1,5 @@
-model = "gpt-5.6-luna"
-model_reasoning_effort = "low"
+model = "gpt-5.6-terra"
+model_reasoning_effort = "medium"
 
 notify = ["/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 approval_policy = "never"
@@ -13,7 +13,7 @@ source_type = "local"
 source = "/Users/henry/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-16T07:42:10Z"
+last_updated = "2026-08-02T19:53:04Z"
 source_type = "local"
 source = "/Users/henry/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -32,14 +32,14 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_nod
 NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex"
 CODEX_HOME = "/Users/henry/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "0b03c76c1d0f3d4c81f89f58ff210ae6709fd1204d2c5a4fdffa0a7bdb961b96,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "028a14b6eaa6d98dac2aae00764345ab9f244801ed8493d42b9af3be5575006e,f204d340535055781952b10ed396de20b842f00a19e430852f7e121ad1ce91f6"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.715.61943"
-SKY_CUA_SERVICE_PATH = "/Users/henry/.codex/plugins/cache/openai-bundled/computer-use/1.0.1000451/Codex Computer Use.app"
+BROWSER_USE_CODEX_APP_VERSION = "26.727.51351"
+SKY_CUA_SERVICE_PATH = "/Users/henry/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
@@ -110,14 +110,16 @@ usePointerCursors = false
 show-context-window-usage = true
 
 [desktop.open-in-target-preferences]
-global = "vscode"
+global = "fileManager"
 
 [desktop.open-in-target-preferences.perPath]
 "/Users/henry/coding/private/worldmodels" = "fileManager"
+"/Users/henry/coding/private/betterag" = "vscode"
+"/Users/henry/coding/trading/fuzzytrade" = "fileManager"
 
 [shell_environment_policy.set]
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "0b03c76c1d0f3d4c81f89f58ff210ae6709fd1204d2c5a4fdffa0a7bdb961b96,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "028a14b6eaa6d98dac2aae00764345ab9f244801ed8493d42b9af3be5575006e,f204d340535055781952b10ed396de20b842f00a19e430852f7e121ad1ce91f6"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex"
 
 [projects]
@@ -166,3 +168,59 @@ trust_level = "trusted"
 
 [projects."/Users/henry/.agents"]
 trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/betterag"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/trading/fuzzytrade"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-07-22/google-gemma-4-12b"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-07-22/spokenly-transcribe-users-henry-downloads-atheist"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-07-23/pru"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-07-24/de"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-07-25/can-you-transfer-the-git-settings"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-07-28/an-y"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-07-30/i-ma"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-07-30/use"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/thinkingrocks"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-04/wh"]
+trust_level = "trusted"
+
+[[skills.config]]
+path = "/Users/henry/.agents/skills/paseo/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/henry/.agents/skills/paseo-committee/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/henry/.agents/skills/paseo-loop/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/henry/.agents/skills/paseo-advisor/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/henry/.agents/skills/paseo-handoff/SKILL.md"
+enabled = false

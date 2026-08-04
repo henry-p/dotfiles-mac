@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.83.0",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.5",
-  "defaultThinkingLevel": "xhigh",
+  "defaultModel": "gpt-5.6-sol",
+  "defaultThinkingLevel": "medium",
   "enableInstallTelemetry": false,
   "theme": "light",
   "packages": [
@@ -14,7 +14,8 @@
     "local/impeccable",
     "npm:pi-rtk-optimizer",
     "npm:pi-openai-fast-mode",
-    "npm:@amaster.ai/pi-computer-use"
+    "npm:@amaster.ai/pi-computer-use",
+    "npm:pi-mcp-adapter"
   ],
   "steeringMode": "all"
 }

@@ -267,6 +267,15 @@ trust_level = "trusted"
 [projects."/Users/henry/Documents/Codex/2026-08-19/users-henry-coding-private-dotfiles-mac"]
 trust_level = "trusted"
 
+[projects."/Users/henry/Documents/Codex/2026-08-19/t"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-19/https-github-com-kunchenguid-lavish-axi"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-19/users-henry-agents-skills-paseo"]
+trust_level = "trusted"
+
 [[skills.config]]
 path = "/Users/henry/.agents/skills/paseo/SKILL.md"
 enabled = false
@@ -285,4 +294,27 @@ enabled = false
 
 [[skills.config]]
 path = "/Users/henry/.agents/skills/paseo-handoff/SKILL.md"
+enabled = false
+
+# Paseo installs a second copy of these skills into Codex's own skills directory.
+# Disable those copies too. Otherwise disabling only the shared .agents copies
+# still leaves the Codex-local copies available for automatic skill selection.
+[[skills.config]]
+path = "/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/skills/paseo/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/skills/paseo-committee/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/skills/paseo-loop/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/skills/paseo-advisor/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/skills/paseo-handoff/SKILL.md"
 enabled = false

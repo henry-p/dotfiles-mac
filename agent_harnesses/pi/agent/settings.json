@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.83.0",
+  "lastChangelogVersion": "0.84.1",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "medium",
@@ -11,11 +11,10 @@
     "git:https://github.com/hasit/pi-community-themes",
     "npm:pi-subagents",
     "npm:pi-gstack",
-    "local/impeccable",
-    "npm:pi-rtk-optimizer",
     "npm:pi-openai-fast-mode",
     "npm:@amaster.ai/pi-computer-use",
-    "npm:pi-mcp-adapter"
+    "npm:pi-mcp-adapter",
+    "npm:pi-impeccable-skill"
   ],
   "steeringMode": "all"
 }

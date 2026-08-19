@@ -1,11 +1,12 @@
-model = "gpt-5.6-terra"
-model_reasoning_effort = "medium"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
 
 notify = ["/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 approval_policy = "never"
 approvals_reviewer = "user"
 sandbox_mode = "danger-full-access"
 service_tier = "default"
+personality = "pragmatic"
 
 [marketplaces.openai-bundled]
 last_updated = "2026-06-20T11:07:47Z"
@@ -13,7 +14,7 @@ source_type = "local"
 source = "/Users/henry/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-08-02T19:53:04Z"
+last_updated = "2026-08-19T00:41:59Z"
 source_type = "local"
 source = "/Users/henry/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -23,30 +24,36 @@ js_repl = false
 
 [mcp_servers.node_repl]
 args = []
-command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
+command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
 startup_timeout_sec = 120
 
 [mcp_servers.node_repl.env]
 NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
-NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
-NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 CODEX_HOME = "/Users/henry/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "028a14b6eaa6d98dac2aae00764345ab9f244801ed8493d42b9af3be5575006e,f204d340535055781952b10ed396de20b842f00a19e430852f7e121ad1ce91f6"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "323bc3e687e17d7e377238d9f4c69111c4d0e6219103b6316d8c52082489533b"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.727.51351"
+BROWSER_USE_CODEX_APP_VERSION = "26.803.41515"
 SKY_CUA_SERVICE_PATH = "/Users/henry/.codex/computer-use/Codex Computer Use.app"
-CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
 command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
 args = ["mcp"]
 cwd = "."
 enabled = false
+
+[mcp_servers.jean]
+command = "/Applications/Jean.app/Contents/MacOS/jean"
+args = ["--jean-mcp-stdio"]
+env = { JEAN_MCP_SOCKET = "/Users/henry/Library/Application Support/com.jean.desktop/jean-mcp.sock", JEAN_MCP_TOKEN = "6omHJzJXrihCaxSV1oy9GzZPiOgmpSDn_OiNKCp02Ik", JEAN_MCP_SESSION = "manual-prod", JEAN_MCP_DEPTH = "0", JEAN_MCP_MODE = "prod" }
+enabled = true
 
 [hooks.state]
 
@@ -63,19 +70,19 @@ trusted_hash = "sha256:05d04052b206cc46865b4aa9b8b6b8df7ec37728174b6355de273b264
 trusted_hash = "sha256:6ff04b4ba916e714f3a159bab5aa40de3c9d6d7e5d0f5be7ee2a3c913bce3c8d"
 
 [hooks.state."/Users/henry/.codex/hooks.json:pre_tool_use:0:0"]
-trusted_hash = "sha256:9b3aaae7107e2592c0c891d19da4abfc2ba6100372e9ec9b0338e95ee06c61e5"
+trusted_hash = "sha256:e87180aa7a845a4e8671c742154d02f3336ff1693cd84353786950676a35b646"
 
 [hooks.state."/Users/henry/.codex/hooks.json:permission_request:0:0"]
-trusted_hash = "sha256:dc3b9f2c80c5e770377ef306e0581064aebd057bd181d6923262e040f7be0860"
+trusted_hash = "sha256:59a36501523d6a8b85cc02c3a736ad805de653ce908e10b602125d648115300c"
 
 [hooks.state."/Users/henry/.codex/hooks.json:post_tool_use:0:0"]
-trusted_hash = "sha256:20e42019cbb87d2650f0dd5c22b89b0a45a954b65f55d0aa09113212725446e3"
+trusted_hash = "sha256:1d4424675dbac0e5f5247f7637f48d3e4ad1e3f906f9fd05a92257543f684ec0"
 
 [hooks.state."/Users/henry/.codex/hooks.json:user_prompt_submit:1:0"]
-trusted_hash = "sha256:7d4368bbafc1d4dcc43578456dbefddb384418737cbf9fc3bf3299d43247674e"
+trusted_hash = "sha256:1bbf80a578a86f31ebe527dd23122c0325a86924605bc751ce7afdc4fee2af28"
 
 [hooks.state."/Users/henry/.codex/hooks.json:stop:1:0"]
-trusted_hash = "sha256:19e5880192dae9cb8c23571c40d71f838f8f45d829ecfd563b3c0e0e4aad4ae4"
+trusted_hash = "sha256:8fa5975ee559d019faf357e2e7880255e6b26a108505ece97171c4988eef96e9"
 
 [tui.model_availability_nux]
 "gpt-5.5" = 2
@@ -108,6 +115,7 @@ dock-icon-preference = "codex-system"
 conversationDetailMode = "STEPS_COMMANDS"
 usePointerCursors = false
 show-context-window-usage = true
+enabled-reasoning-efforts = ["low", "medium", "high", "xhigh", "ultra", "max"]
 
 [desktop.open-in-target-preferences]
 global = "fileManager"
@@ -119,8 +127,8 @@ global = "fileManager"
 
 [shell_environment_policy.set]
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "028a14b6eaa6d98dac2aae00764345ab9f244801ed8493d42b9af3be5575006e,f204d340535055781952b10ed396de20b842f00a19e430852f7e121ad1ce91f6"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "323bc3e687e17d7e377238d9f4c69111c4d0e6219103b6316d8c52082489533b"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 
 [projects]
 
@@ -203,6 +211,60 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/henry/Documents/Codex/2026-08-04/wh"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-04/when"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-04/investigate-why-the-impeccable-live-controls"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/zereal/southdata"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-04/https-www-youtube-com-watch-v"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-05/i-am-looking-for-the-best"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-06/new-chat"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-06/as-soon-as-i-let-my"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-06/use-agentic-loop-designer-to-design"]
+trust_level = "trusted"
+
+[projects."/Users/henry"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/zen-shot"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-10/figure-out-what-is-currently-taking"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/panticles"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-11/how-m"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-11/is-there-a-python-virtual-environment"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-12/there-recently-have-been-some-hyped"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-13/re"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-19/in"]
+trust_level = "trusted"
+
+[projects."/Users/henry/Documents/Codex/2026-08-19/users-henry-coding-private-dotfiles-mac"]
 trust_level = "trusted"
 
 [[skills.config]]

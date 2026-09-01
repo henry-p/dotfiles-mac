@@ -212,7 +212,6 @@ brew "neovim"
 # HTTP/2 C Library
 brew "nghttp2"
 # Open-source, cross-platform JavaScript runtime environment
-brew "node"
 # Manage multiple Node.js versions
 brew "nvm"
 # Create, run, and share large language models (LLMs)

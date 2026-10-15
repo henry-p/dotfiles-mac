@@ -23,6 +23,7 @@ bash setup-all.sh
 
 # Or run individual components
 bash macos/setup.sh     # macOS system settings only
+bash macos/mail/setup.sh # Mail sender search (Control+Option+A)
 bash window_managers/aerospace/setup.sh # Aerospace window manager
 bash window_managers/omniwm/setup.sh    # OmniWM window manager
 bash tmux/setup.sh      # tmux configuration
@@ -30,6 +31,22 @@ bash zsh/setup.sh       # zsh configuration
 bash editors/setup.sh   # Editor configurations
 bash agent_harnesses/codex/setup.sh # Codex configuration
 ```
+
+## Apple Mail sender search
+
+`macos/mail/setup.sh` installs the sender-search AppleScript, its Mail-only
+Quick Action, and Control+Option+A. It is also called by `setup-all.sh`.
+The script searches All Mailboxes and leaves deletion to you. OmniWM's
+Control+Option+F binding is unchanged.
+
+The installer compiles the tracked source, preserves changed local files as
+backups, and leaves an existing Shortcuts entry in place. On a fresh Mac it
+opens the exported Shortcut for you to add. Script execution, Accessibility,
+and Automation permissions still need approval on the new Mac.
+
+See [macos/mail/README.md](macos/mail/README.md) for migration, testing, and
+maintenance. Commit and push this repo before relying on it for migration;
+iCloud syncing of Shortcuts does not install the local Library files.
 
 ## zsh Local Secrets
 

@@ -23,6 +23,10 @@ echo "=========================================="
 echo "🍎 Setting up macOS system settings..."
 ./macos/setup.sh
 
+# Apple Mail sender search (Control+Option+A)
+echo "Setting up Apple Mail sender search..."
+./macos/mail/setup.sh
+
 # ==========================================
 # WINDOW MANAGERS
 # ==========================================

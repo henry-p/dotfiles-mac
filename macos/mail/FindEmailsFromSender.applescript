@@ -37,21 +37,19 @@ on findSender()
 			set senderAddress to extract address from senderText
 		end tell
 		set senderAddress to my validatedAddress(senderAddress)
-		-- Mail's inbox object is the unified inbox across accounts, even when
-		-- its sidebar label has been renamed (for example, "Alle" on this Mac).
-		tell application "Mail"
-			set inboxName to name of inbox
-			set selected mailboxes of message viewer 1 to {inbox}
-		end tell
-		set searchField to my mailSearchField()
+		set originalScope to my captureMailboxScope()
 		tell application "System Events" to tell process "Mail"
 			if not frontmost then error "Mail lost focus. Run the shortcut again in Mail."
-			-- An unread/VIP view filter must not hide other matching inbox mail.
+			-- An unread/VIP view filter must not hide other matching mail.
 			repeat with filterControl in checkboxes of toolbar 1 of window 1
 				if description of filterControl is "Filter" and value of filterControl is 1 then click filterControl
 			end repeat
-			set value of attribute "AXFocused" of searchField to true
-			if not (value of attribute "AXFocused" of searchField) then error "Could not focus Mail's search field."
+		end tell
+		-- Changing the filter rebuilds the toolbar and changes the window title.
+		-- Resolve a fresh search-field reference only after that change.
+		my focusMailSearchField()
+		tell application "System Events" to tell process "Mail"
+			if not frontmost then error "Mail lost focus. Run the shortcut again in Mail."
 			-- Cmd+A is sent only after confirming focus in the search field.
 			keystroke "a" using command down
 			keystroke "from:" & senderAddress
@@ -73,33 +71,15 @@ on findSender()
 			delay 0.1
 		end repeat
 		if not tokenVerified then error "Mail did not create the expected sender filter. Review the search field before selecting or deleting results."
-		-- Select the unified inbox in the search sidebar, not All Mailboxes.
-		set scopeRow to missing value
-		repeat 30 times
-			tell application "System Events" to tell process "Mail"
-				set sidebarOutline to outline 1 of scroll area 1 of splitter group 1 of window 1
-				repeat with candidateRow in rows of sidebarOutline
-					repeat with cellElement in UI elements of candidateRow
-						if description of cellElement is inboxName then set scopeRow to contents of candidateRow
-					end repeat
-					if scopeRow is not missing value then exit repeat
-				end repeat
-			end tell
-			if scopeRow is not missing value then exit repeat
-			delay 0.1
-		end repeat
-		if scopeRow is missing value then error "Could not find All Inboxes. Review the search scope before using the results."
+		my restoreMailboxScope(originalScope)
 		tell application "System Events" to tell process "Mail"
-			select scopeRow
-			if not selected of scopeRow then error "Could not confirm the All Inboxes scope."
 			-- Focus the list without selecting a message or marking one as read.
 			set resultList to table 1 of scroll area 1 of splitter group 1 of splitter group 1 of window 1
 			if value of attribute "AXIdentifier" of resultList is not "Mail.messageList" then error "Search is ready. Click the message list before pressing Cmd+A."
 			set value of attribute "AXFocused" of resultList to true
-			set focusedElement to value of attribute "AXFocusedUIElement"
-			if value of attribute "AXIdentifier" of focusedElement is not "Mail.messageList" then error "Search is ready. Click the message list before pressing Cmd+A."
+			if not (value of attribute "AXFocused" of resultList) then error "Search is ready. Click the message list before pressing Cmd+A."
 		end tell
-		return "Searching all inboxes for sender " & senderAddress
+		return "Searching the selected mailbox scope for sender " & senderAddress
 	end timeout
 end findSender
 
@@ -112,6 +92,112 @@ on validatedAddress(rawAddress)
 	if (matchRange's |length| as integer) is 0 then error "Mail could not extract one unambiguous sender email address. No search was run."
 	return addressString as text
 end validatedAddress
+
+-- Search adds two temporary rows above the mailbox tree. Store positions
+-- relative to that tree, plus their labels and row count. Duplicate mailbox
+-- names (for example, multiple accounts' Inbox) remain distinguishable.
+on mailboxSidebarStart(sidebarOutline)
+	tell application "System Events"
+		if (count rows of sidebarOutline) > 1 then
+			set firstLabel to description of UI element 1 of row 1 of sidebarOutline
+			set secondLabel to description of UI element 1 of row 2 of sidebarOutline
+			if firstLabel is in {"Suchen", "Search"} and secondLabel is in {"Alle Postfächer", "All Mailboxes"} then return 3
+		end if
+	end tell
+	return 1
+end mailboxSidebarStart
+
+on captureMailboxScope()
+	tell application "System Events" to tell process "Mail"
+		set sidebarOutline to outline 1 of scroll area 1 of splitter group 1 of window 1
+	end tell
+	set firstMailboxRow to my mailboxSidebarStart(sidebarOutline)
+	set positions to {}
+	set labels to {}
+	tell application "System Events"
+		set selectionFlags to selected of rows of sidebarOutline
+		if firstMailboxRow is 3 and item 2 of selectionFlags then return {true, {}, {}, 0}
+		repeat with i from firstMailboxRow to count selectionFlags
+			if item i of selectionFlags then
+				set end of positions to i - firstMailboxRow + 1
+				set end of labels to description of UI element 1 of row i of sidebarOutline
+			end if
+		end repeat
+		set mailboxRowCount to (count selectionFlags) - firstMailboxRow + 1
+	end tell
+	if positions is {} then error "Select a mailbox in Mail's sidebar first."
+	return {false, positions, labels, mailboxRowCount}
+end captureMailboxScope
+
+on restoreMailboxScope(originalScope)
+	set {searchAll, positions, labels, mailboxRowCount} to originalScope
+	tell application "System Events" to tell process "Mail"
+		set sidebarOutline to outline 1 of scroll area 1 of splitter group 1 of window 1
+	end tell
+	set firstMailboxRow to my mailboxSidebarStart(sidebarOutline)
+	if firstMailboxRow is not 3 then error "Mail's search scope is not ready. Run the shortcut again."
+	tell application "System Events"
+		if searchAll then
+			select row 2 of sidebarOutline
+			if not selected of row 2 of sidebarOutline then error "Could not confirm All Mailboxes."
+		else
+			if (count rows of sidebarOutline) - firstMailboxRow + 1 is not mailboxRowCount then error "Mail's sidebar changed. Select the intended mailbox and run the shortcut again."
+			set scopeRows to {}
+			repeat with i from 1 to count positions
+				set rowNumber to (item i of positions) + firstMailboxRow - 1
+				if description of UI element 1 of row rowNumber of sidebarOutline is not item i of labels then error "Mail's mailbox selection changed. Run the shortcut again."
+				set end of scopeRows to row rowNumber of sidebarOutline
+			end repeat
+			if (count scopeRows) is 1 then
+				set scopeRow to item 1 of scopeRows
+				if not selected of scopeRow then select scopeRow
+			else
+				select scopeRows
+			end if
+			repeat with scopeRow in scopeRows
+				if not selected of scopeRow then error "Could not confirm the selected mailbox scope."
+			end repeat
+		end if
+	end tell
+end restoreMailboxScope
+
+on focusMailSearchField()
+	-- Use Mail's own Mailbox Search command. Do not set AXFocused on a
+	-- toolbar reference: Mail can invalidate it when the filter/title changes.
+	tell application "System Events" to tell process "Mail"
+		if not frontmost then error "Mail lost focus. Run the shortcut again in Mail."
+		if exists menu bar item "Bearbeiten" of menu bar 1 then
+			set editMenuItem to menu bar item "Bearbeiten" of menu bar 1
+			set findMenuName to "Suchen"
+		else
+			set editMenuItem to menu bar item "Edit" of menu bar 1
+			set findMenuName to "Find"
+		end if
+		set searchCommands to menu items of menu 1 of menu item findMenuName of menu 1 of editMenuItem
+		set mailboxSearchCommand to missing value
+		repeat with searchCommand in searchCommands
+			if value of attribute "AXIdentifier" of searchCommand is "Mail.menuBar.editMenu.find.mailboxSearch" then set mailboxSearchCommand to contents of searchCommand
+		end repeat
+		if mailboxSearchCommand is missing value then error "Mail's Mailbox Search menu command is unavailable."
+		click editMenuItem
+		click mailboxSearchCommand
+	end tell
+	repeat 30 times
+		tell application "System Events" to tell process "Mail"
+			if not frontmost then error "Mail lost focus. Run the shortcut again in Mail."
+		end tell
+		try
+			set freshSearchField to my mailSearchField()
+			tell application "System Events"
+				if value of attribute "AXFocused" of freshSearchField then return
+			end tell
+		on error focusError number focusNumber
+			if focusNumber is -1743 or focusNumber is -25211 or focusNumber is -1712 then error focusError number focusNumber
+		end try
+		delay 0.1
+	end repeat
+	error "Could not focus Mail's mailbox search field. Run the shortcut again."
+end focusMailSearchField
 
 on mailSearchField()
 	tell application "System Events" to tell process "Mail"

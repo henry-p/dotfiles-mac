@@ -37,9 +37,19 @@ on findSender()
 			set senderAddress to extract address from senderText
 		end tell
 		set senderAddress to my validatedAddress(senderAddress)
+		-- Mail's inbox object is the unified inbox across accounts, even when
+		-- its sidebar label has been renamed (for example, "Alle" on this Mac).
+		tell application "Mail"
+			set inboxName to name of inbox
+			set selected mailboxes of message viewer 1 to {inbox}
+		end tell
 		set searchField to my mailSearchField()
 		tell application "System Events" to tell process "Mail"
 			if not frontmost then error "Mail lost focus. Run the shortcut again in Mail."
+			-- An unread/VIP view filter must not hide other matching inbox mail.
+			repeat with filterControl in checkboxes of toolbar 1 of window 1
+				if description of filterControl is "Filter" and value of filterControl is 1 then click filterControl
+			end repeat
 			set value of attribute "AXFocused" of searchField to true
 			if not (value of attribute "AXFocused" of searchField) then error "Could not focus Mail's search field."
 			-- Cmd+A is sent only after confirming focus in the search field.
@@ -63,14 +73,14 @@ on findSender()
 			delay 0.1
 		end repeat
 		if not tokenVerified then error "Mail did not create the expected sender filter. Review the search field before selecting or deleting results."
-		-- Tahoe shows search scope as a temporary sidebar row. Select it explicitly.
+		-- Select the unified inbox in the search sidebar, not All Mailboxes.
 		set scopeRow to missing value
 		repeat 30 times
 			tell application "System Events" to tell process "Mail"
 				set sidebarOutline to outline 1 of scroll area 1 of splitter group 1 of window 1
 				repeat with candidateRow in rows of sidebarOutline
 					repeat with cellElement in UI elements of candidateRow
-						if description of cellElement is in {"Alle Postfächer", "All Mailboxes"} then set scopeRow to contents of candidateRow
+						if description of cellElement is inboxName then set scopeRow to contents of candidateRow
 					end repeat
 					if scopeRow is not missing value then exit repeat
 				end repeat
@@ -78,10 +88,10 @@ on findSender()
 			if scopeRow is not missing value then exit repeat
 			delay 0.1
 		end repeat
-		if scopeRow is missing value then error "Could not find All Mailboxes. Select it in Mail's sidebar before using the results."
+		if scopeRow is missing value then error "Could not find All Inboxes. Review the search scope before using the results."
 		tell application "System Events" to tell process "Mail"
 			select scopeRow
-			if not selected of scopeRow then error "Could not confirm the All Mailboxes scope."
+			if not selected of scopeRow then error "Could not confirm the All Inboxes scope."
 			-- Focus the list without selecting a message or marking one as read.
 			set resultList to table 1 of scroll area 1 of splitter group 1 of splitter group 1 of window 1
 			if value of attribute "AXIdentifier" of resultList is not "Mail.messageList" then error "Search is ready. Click the message list before pressing Cmd+A."
@@ -89,7 +99,7 @@ on findSender()
 			set focusedElement to value of attribute "AXFocusedUIElement"
 			if value of attribute "AXIdentifier" of focusedElement is not "Mail.messageList" then error "Search is ready. Click the message list before pressing Cmd+A."
 		end tell
-		return "Searching all mailboxes for sender " & senderAddress
+		return "Searching all inboxes for sender " & senderAddress
 	end timeout
 end findSender
 

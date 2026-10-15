@@ -1,7 +1,7 @@
 # Mail sender search
 
 Select an email in Apple Mail and press Control+Option+A. Mail searches All
-Mailboxes using the sender's email address and focuses the results list.
+Inboxes across accounts using the sender's email address and focuses the results list.
 Review the matches, then use Command+A and Delete yourself. The automation
 never deletes or moves messages.
 
@@ -40,7 +40,7 @@ On a new Mac, also complete these macOS approvals:
 The installer does not change security permissions or attempt to bypass them.
 Restart Mail if its Services menu has not refreshed. To check the setup without
 deleting anything, select an already-read email and press Control+Option+A.
-Confirm its sender filter and All Mailboxes scope. The same command is under
+Confirm its sender filter and All Inboxes scope. The same command is under
 Mail > Services > Find Emails From Sender (Mail).
 
 Preview installation with `--dry-run`. Use `--no-open` for a setup run that
@@ -84,9 +84,12 @@ then run setup and complete the approvals above.
 Tested on macOS 26.4.1 with Mail's German interface. English labels are also
 supported. Mail UI changes may require updating the source. Multiple selections
 use the first message in Mail's selection order. Ambiguous addresses stop the
-search. All Mailboxes follows Mail's existing search preferences, including
-Trash and potentially Junk. Search completeness depends on Mail's index and
-synchronized messages. Review results before deleting them.
+search. The scope is Mail's unified Inbox, identified through AppleScript even
+if its sidebar label was renamed ("Alle" on this Mac). Trash, Junk, Sent,
+Archive, and other folders are excluded. An active message-list filter is
+turned off so matching read messages are included too. Search completeness
+depends on Mail's index and synchronized messages. Review results before
+deleting them.
 
 Control+Option+F remains assigned to OmniWM; this automation uses
 Control+Option+A to avoid that conflict.

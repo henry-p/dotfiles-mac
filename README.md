@@ -36,7 +36,7 @@ bash agent_harnesses/codex/setup.sh # Codex configuration
 
 `macos/mail/setup.sh` installs the sender-search AppleScript, its Mail-only
 Quick Action, and Control+Option+A. It is also called by `setup-all.sh`.
-The script searches All Mailboxes and leaves deletion to you. OmniWM's
+The script searches All Inboxes across accounts and leaves deletion to you. OmniWM's
 Control+Option+F binding is unchanged.
 
 The installer compiles the tracked source, preserves changed local files as

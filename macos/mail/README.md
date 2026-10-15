@@ -90,7 +90,12 @@ restricted to that folder. Trash and other folders are included only when the
 selected scope includes them. An active message-list filter is turned off so
 matching read messages are included too. Mail's own Mailbox Search command
 focuses the field after the filter changes; stale toolbar references are not
-used for setting focus. If the sidebar structure changes during a run, the
+used for setting focus. The script waits for shortcut modifiers to be released,
+pastes the query as text, and verifies it before submitting the search. The
+previous clipboard items and formats are restored unless something else was
+copied during the run. Temporary toolbar rebuilds are retried; a missing toolbar
+is reported as a window-readiness issue rather than a permission failure.
+If the sidebar structure changes during a run, the
 script stops rather than selecting a different folder. Search completeness
 depends on Mail's index and synchronized messages. Review results before
 deleting them.

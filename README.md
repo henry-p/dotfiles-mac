@@ -79,6 +79,17 @@ atomically:
 The repo ignores Codex runtime state by default and tracks only the intentional
 files: `.codex-linked/config.toml` and `.codex-linked/bin/`.
 
+The Codex setup also installs `com.henry.codex-environment` as a user LaunchAgent.
+Its template lives in `agent_harnesses/codex/launchagents/`. The agent sets
+`CODEX_HOME` to the repo directory's resolved path once at each login, then exits.
+Setup applies the same environment immediately and updates the existing bundled
+marketplace source in `config.toml` to use that path. The `~/.codex` symlink stays
+in place.
+
+Fully quit and reopen ChatGPT/Codex after running setup. If macOS restores the app
+before the agent runs at login, quit and reopen it then too. Rerun setup after
+moving the repository. Setup requires Python 3.
+
 ## Editor Settings Management
 
 ### Why Symlinks Instead of Gists?

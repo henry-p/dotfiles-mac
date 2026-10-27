@@ -12,6 +12,8 @@ source "$SCRIPT_DIR/../utils/symlinks.sh"
 DOTFILES_DIR="$(get_dotfiles_dir)"
 SOURCE_ZSHRC_PATH="$DOTFILES_DIR/zsh/.zshrc"
 TARGET_ZSHRC_PATH="$HOME/.zshrc"
+SOURCE_ZSHENV_PATH="$DOTFILES_DIR/zsh/.zshenv"
+TARGET_ZSHENV_PATH="$HOME/.zshenv"
 SOURCE_SECRETS_PATH="$DOTFILES_DIR/zsh/secrets.zsh"
 TARGET_SECRETS_PATH="$HOME/.config/dotfiles/secrets.zsh"
 EXAMPLE_SECRETS_PATH="$DOTFILES_DIR/zsh/secrets.example.zsh"
@@ -36,6 +38,7 @@ if [[ ! -e "$SOURCE_ZSHRC_PATH" ]]; then
 fi
 
 create_relative_symlink "$SOURCE_ZSHRC_PATH" "$TARGET_ZSHRC_PATH"
+create_relative_symlink "$SOURCE_ZSHENV_PATH" "$TARGET_ZSHENV_PATH"
 
 if [[ -e "$SOURCE_SECRETS_PATH" ]]; then
   chmod 600 "$SOURCE_SECRETS_PATH"

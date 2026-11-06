@@ -211,3 +211,6 @@ esac
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/henry/.lmstudio/bin"
 # End of LM Studio CLI section
+
+# Disable T3 Code telemetry.
+export T3CODE_TELEMETRY_ENABLED=false

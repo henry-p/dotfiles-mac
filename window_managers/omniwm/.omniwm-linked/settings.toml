@@ -171,6 +171,11 @@ yOffset = 0.0
 
 [[appRules]]
 assignToWorkspace = "2"
+bundleId = "com.t3tools.t3code"
+id = "FB231736-BC0E-433A-8236-75DED697FD76"
+
+[[appRules]]
+assignToWorkspace = "2"
 bundleId = "com.openai.codex"
 id = "6A31F08A-4051-4354-B439-42F4C71894A3"
 
@@ -713,7 +718,7 @@ binding = "Unassigned"
 id = "moveWindowToMonitor.down"
 
 [[hotkeys]]
-binding = "Option+Return"
+binding = "Unassigned"
 id = "toggleFullscreen"
 
 [[hotkeys]]

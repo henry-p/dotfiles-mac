@@ -1,4 +1,4 @@
-model = "gpt-6.1-sol"
+model = "gpt-6.1-terra"
 model_reasoning_effort = "medium"
 
 notify = ["/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
@@ -6,7 +6,7 @@ approval_policy = "never"
 approvals_reviewer = "user"
 sandbox_mode = "danger-full-access"
 personality = "pragmatic"
-service_tier = "default"
+service_tier = "priority"
 
 [marketplaces.openai-bundled]
 source_type = "local"
@@ -16,6 +16,10 @@ source = "/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-
 source_type = "local"
 source = "/Users/henry/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
+[marketplaces.postman]
+source_type = "git"
+source = "https://github.com/postmanlabs/postman-plugin.git"
+
 [features]
 hooks = true
 js_repl = false
@@ -23,6 +27,7 @@ js_repl = false
 [mcp_servers.node_repl]
 args = []
 command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
+env_vars = ["BROWSER_USE_ACCESS_EXECUTOR_ID", "BROWSER_USE_ACCESS_PIPE_PATH", "BROWSER_USE_ACCESS_VERIFYING_IDENTITY"]
 startup_timeout_sec = 120
 
 [mcp_servers.node_repl.env]
@@ -37,8 +42,8 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.1002.52244"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/plugins/cache/openai-bundled/browser/26.1002.52244/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.1029.61003"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/plugins/cache/openai-bundled/browser/26.1029.61003/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex"
 
@@ -110,6 +115,10 @@ trusted_hash = "sha256:05d04052b206cc46865b4aa9b8b6b8df7ec37728174b6355de273b264
 [hooks.state."/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/hooks.json:stop:1:0"]
 trusted_hash = "sha256:8fa5975ee559d019faf357e2e7880255e6b26a108505ece97171c4988eef96e9"
 
+[hooks.state."postman@postman:hooks/codex-hooks.json:session_start:0:0"]
+trusted_hash = "sha256:b67ddd1ece328f5a6f9103ce011bb58adb8411daea644f284732cff85d15cbb3"
+trusted_content_hash = "sha256:9807028224942250da1319f5e679fb606e8a39e31ade6175c0ecfb81f3beedd7"
+
 [tui.model_availability_nux]
 "gpt-5.5" = 2
 
@@ -144,7 +153,6 @@ enabled = true
 enabled = true
 
 [desktop]
-followUpQueueMode = "queue"
 appshotSoundEnabled = true
 dock-icon-preference = "codex-system"
 conversationDetailMode = "STEPS_COMMANDS"
@@ -154,6 +162,11 @@ enabled-reasoning-efforts = ["low", "medium", "high", "xhigh", "ultra", "max"]
 sidebar-show-projects-in-recents = false
 open-local-url-in-target-preference = "external-browser"
 "browser-family-enabled:chrome" = true
+realtimeVoiceScreenContextEnabled = true
+appearanceLightCodeThemeId = "catppuccin"
+migratedFollowUpQueueToSteer = true
+followUpQueueMode = "queue"
+browser-show-device-toolbar-in-new-tabs = true
 
 [desktop.open-in-target-preferences]
 global = "vscode"
@@ -164,21 +177,23 @@ global = "vscode"
 "/Users/henry/coding/trading/fuzzytrade" = "fileManager"
 "/home/henry/projects/southdata" = "vscode"
 "/Users/henry/coding/saco" = "vscode"
+"/Users/henry/coding/zereal/datalift" = "vscode"
 
 [desktop.appearanceLightChromeTheme]
-accent = "#3a83f7"
-accentSource = "chatgpt"
+accent = "#8839ef"
+accentSource = "custom"
 contrast = 45
-ink = "#1a1c1f"
+ink = "#4c4f69"
 opaqueWindows = true
-surface = "#ffffff"
+surface = "#eff1f5"
 
 [desktop.appearanceLightChromeTheme.fonts]
+ui = "Inter"
 
 [desktop.appearanceLightChromeTheme.semanticColors]
-diffAdded = "#00a240"
-diffRemoved = "#ba2623"
-skill = "#924ff7"
+diffAdded = "#40a02b"
+diffRemoved = "#d20f39"
+skill = "#8839ef"
 
 [desktop.appearanceDarkChromeTheme]
 accent = "#3a83f7"
@@ -404,6 +419,15 @@ trust_level = "trusted"
 [projects."/Users/henry/coding/private/elekw"]
 trust_level = "trusted"
 
+[projects."/Users/henry/coding/private/artcampaigner"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/pliplop"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/socialpump"]
+trust_level = "trusted"
+
 [[skills.config]]
 path = "/Users/henry/.agents/skills/paseo/SKILL.md"
 enabled = false
@@ -458,3 +482,5 @@ enabled = false
 [[skills.config]]
 path = "/Users/henry/.agents/skills/paseo-plugin/SKILL.md"
 enabled = false
+
+

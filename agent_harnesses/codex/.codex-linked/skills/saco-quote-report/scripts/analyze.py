@@ -5,8 +5,10 @@ import base64
 from collections import Counter
 from datetime import datetime, timezone
 from email.utils import parseaddr
+from fractions import Fraction
 from html.parser import HTMLParser
 import json
+import math
 from pathlib import Path
 import re
 from zoneinfo import ZoneInfo
@@ -123,6 +125,43 @@ def load_rows(path):
     return [json.loads(line) for line in text.splitlines() if line.strip()]
 
 
+def build_email_flows(monthly, groups, classified):
+    """Conserve one email across its recognized error groups."""
+    weighted = {g['id']: Counter() for g in groups}
+    residual = {'customer-only': Counter(), 'unclassified': Counter()}
+    seen = Counter()
+    for record in classified:
+        month = record['month']
+        seen[month] += 1
+        keys = set(record['categories'])
+        if keys:
+            for key in keys:
+                weighted[key][month] += Fraction(1, len(keys))
+        else:
+            residual['customer-only' if record['excluded'] else 'unclassified'][month] += 1
+    result = []
+    for index, status in enumerate(STATUSES[:2]):
+        values = [m['counts'][index] for m in monthly]
+        result.append(dict(id=('working', 'working-dummy')[index], name=status, status=status,
+                           color=('working', 'dummy')[index], counts=values,
+                           affectedCounts=values, total=sum(values)))
+    for group in groups:
+        values = [float(weighted[group['id']][m['month']]) for m in monthly]
+        result.append(dict(id=group['id'], name=group['name'], status='Needs work',
+                           color='c' + str(group['color']), counts=values,
+                           affectedCounts=group['counts'], total=sum(values)))
+    for key, name in [('customer-only', 'Needs work: Kunden-/Tarifzuordnung'),
+                      ('unclassified', 'Needs work: nicht zugeordnet')]:
+        values = [residual[key][m['month']] for m in monthly]
+        if sum(values):
+            result.append(dict(id=key, name=name, status='Needs work', color='needs',
+                               counts=values, affectedCounts=values, total=sum(values)))
+    for month in monthly:
+        if seen[month['month']] != month['counts'][2]:
+            raise ValueError('Per-email classification coverage is incomplete')
+    return result
+
+
 def analyze(rows, manifest, rules):
     as_of = datetime.fromisoformat(manifest['as_of'].replace('Z', '+00:00'))
     if as_of.tzinfo is None:
@@ -158,6 +197,7 @@ def analyze(rows, manifest, rules):
     group_months = {r['id']: Counter() for r in rules}
     groups_by_id = {r['id']: r for r in rules}
     review = []
+    classified = []
     unknown = excluded = with_errors = 0
     for row, date in eligible:
         month = date.strftime('%Y-%m')
@@ -192,6 +232,8 @@ def analyze(rows, manifest, rules):
         else:
             unknown += 1
             review.append({'id': row['id'], 'reason': 'Needs work without a recognized error or exclusion', 'excerpt': clean[:1600]})
+        classified.append({'month': month, 'categories': sorted(found),
+                           'excluded': not found and any(CUSTOMER.search(b) for b in bullets)})
         # New API errors may coexist with already recognized categories.
         for block in re.findall(r'OSCA[^\n]{0,180}(?:Fehler gemeldet|reported[^\n]*errors)[^\n]*:([\s\S]*?)(?=\n(?:Angebot|Offer|Sendungsübersicht|Shipment overview|Entwicklerinformationen)|$)', clean, re.I):
             for bullet in block.split('•')[1:]:
@@ -213,6 +255,7 @@ def analyze(rows, manifest, rules):
               'emailsWithOtherErrors': with_errors, 'excludedCustomerOnly': excluded,
               'uncategorizedNeedsWork': unknown, 'duplicateIdsRemoved': duplicates,
               'review': review, 'sourceComplete': True}
+    result['emailFlowGroups'] = build_email_flows(monthly, groups, classified)
     validate(result)
     return result
 
@@ -237,6 +280,20 @@ def validate(data):
             raise ValueError('Invalid per-email error count')
     if sum(g['total'] for g in data['groups']) != data['assignments']:
         raise ValueError('Assignment total mismatch')
+    if 'emailFlowGroups' in data:
+        flows = data['emailFlowGroups']
+        for flow in flows:
+            if flow['status'] not in STATUSES or len(flow['counts']) != n or len(flow['affectedCounts']) != n:
+                raise ValueError('Invalid email-flow group')
+            if any(not math.isfinite(v) or v < 0 for v in flow['counts']):
+                raise ValueError('Invalid email-flow weights')
+            if not math.isclose(sum(flow['counts']), flow['total'], abs_tol=1e-9):
+                raise ValueError('Email-flow group total mismatch')
+        for i, month in enumerate(data['monthly']):
+            for status_index, status in enumerate(STATUSES):
+                weight = sum(g['counts'][i] for g in flows if g['status'] == status)
+                if not math.isclose(weight, month['counts'][status_index], abs_tol=1e-9):
+                    raise ValueError('Email flow does not conserve monthly status counts')
 
 
 def main():

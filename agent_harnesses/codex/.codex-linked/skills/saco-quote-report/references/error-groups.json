@@ -1,0 +1,122 @@
+[
+  {
+    "id": "error-01",
+    "name": "Packstückdaten fehlen oder sind ungültig",
+    "pattern": "^(volumeWeight Error|Für den Vorlauf müssen individuelle Maße|For pre-carriage individual dimensions|Ungültiger Eintrag für cbm|Ungültige Eingabe zur Berechnung von Gewicht/cbm|Bitte nur aufgerundete Zahlen)",
+    "color": 1
+  },
+  {
+    "id": "error-02",
+    "name": "SACO-Ansprechpartner am Zielort fehlt",
+    "pattern": "^(Verantwortlicher SACO\\s*Mitarbeiter fehlt|Responsible SACO clerk is missing)",
+    "color": 2
+  },
+  {
+    "id": "error-03",
+    "name": "Zulässige Abmessungen überschritten",
+    "pattern": "^(Die Lieferung darf die Abmessungen|Shipment may not extend the dimensions)",
+    "color": 3
+  },
+  {
+    "id": "error-04",
+    "name": "Abmessungsgrenzen für den Zielort fehlen",
+    "pattern": "^(Fehlende Abmessungen fuer Unlocode|Unlocode missing dimensions)",
+    "color": 2
+  },
+  {
+    "id": "error-05",
+    "name": "Gewichtsgrenze der Sendung überschritten",
+    "pattern": "^(Das maximale Gewicht darf|Maximum weight may not exceed)",
+    "color": 3
+  },
+  {
+    "id": "error-06",
+    "name": "Startort fehlt oder ist ungültig",
+    "pattern": "^(Missing starting location information|unlocodeStart is missing|unlocodeStart muss)",
+    "color": 2
+  },
+  {
+    "id": "error-07",
+    "name": "Packstückdaten nicht zuverlässig übernommen",
+    "pattern": "^(Packstückanzahl|Höhe|Länge|Breite|Gewicht|Gewichtszuordnung) (nicht zuverlässig übernommen|nicht eindeutig bestimmbar)",
+    "color": 1
+  },
+  {
+    "id": "error-08",
+    "name": "Volumengrenze überschritten",
+    "pattern": "^Das maximale Volumen darf",
+    "color": 3
+  },
+  {
+    "id": "error-09",
+    "name": "Postleitzahl fehlt oder ist nicht zuordenbar",
+    "pattern": "^(Für die Postleitzahl wurde kein Standort|No location found for ZIP code|ZIP Angaben fehlen|Invalid postal code)",
+    "color": 2
+  },
+  {
+    "id": "error-10",
+    "name": "OSCA-Fehlercode ohne Fehlerbeschreibung",
+    "pattern": "^Error code:",
+    "color": 4
+  },
+  {
+    "id": "error-11",
+    "name": "Zielort fehlt oder ist nicht zuordenbar",
+    "pattern": "^(unlocodeEnde fehlt|unlocodeEnde is missing|Fehlende Zielortinformationen|Missing target location)",
+    "color": 2
+  },
+  {
+    "id": "error-12",
+    "name": "Gewichtsgrenze je Packstück überschritten",
+    "pattern": "^Das Höchstgewicht pro Packstück",
+    "color": 3
+  },
+  {
+    "id": "error-13",
+    "name": "Weitere Angaben nicht zuverlässig übernommen",
+    "pattern": "^(Warenbeschreibung|Incoterm|Zielland|Abholland|Gefahrgutangaben|E-Mail-Adresse) nicht zuverlässig",
+    "color": 1
+  },
+  {
+    "id": "error-14",
+    "name": "Kundenreferenz ungültig oder nicht bestätigt",
+    "pattern": "^(Ungültiger Eintrag für Kundenreferenz|Kundenreferenz nicht zuverlässig)",
+    "color": 1
+  },
+  {
+    "id": "error-15",
+    "name": "Vorlauf im Abholland nicht unterstützt",
+    "pattern": "^Die Quotierung erlaubt keinen Vorlauf",
+    "color": 5
+  },
+  {
+    "id": "error-16",
+    "name": "Keine Schiffsabfahrt verfügbar",
+    "pattern": "^(Es konnten keine verfügbaren Schiffsabfahrten|No available vessel departures)",
+    "color": 5
+  },
+  {
+    "id": "error-17",
+    "name": "Gefahrgut am Zielort nicht zugelassen",
+    "pattern": "^(Destination does not allow dangerous goods|Zielort lässt keine gefährlichen Güter|Die folgenden Gefahrgutklassen)",
+    "color": 6
+  },
+  {
+    "id": "error-18",
+    "name": "Gefahrgutangaben fehlen oder sind ungültig",
+    "pattern": "^(Invalid entry for UN-No|Missing IMDG information)",
+    "color": 6
+  },
+  {
+    "id": "error-19",
+    "name": "Batterien nur auf Anfrage oder nicht akzeptiert",
+    "pattern": "^(Harmlosen Batterien|Leider können wir zu dieser Destination keine harmlosen Batterien)",
+    "color": 6
+  },
+  {
+    "id": "processing-abort",
+    "name": "Technischer Verarbeitungsabbruch",
+    "pattern": null,
+    "color": 4
+  }
+]

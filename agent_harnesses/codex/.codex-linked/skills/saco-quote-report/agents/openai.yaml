@@ -1,0 +1,6 @@
+interface:
+  display_name: "SACO Quote Report"
+  short_description: "Gmail-Auswertung als zusammenhängender HTML-Report"
+  default_prompt: "Erstelle mit $saco-quote-report einen aktuellen SACO-Report aus Gmail als einzelnes HTML-Dokument."
+policy:
+  allow_implicit_invocation: false

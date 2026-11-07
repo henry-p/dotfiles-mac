@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SACO Quote Report</title>
+<style>
+  :root{color-scheme:light dark;--bg:#fff;--fg:#20242b;--muted:#616975;--line:#dce0e6;--working:#276d58;--dummy:#d7a12f;--needs:#a94a50;--c1:#3b709d;--c2:#74629b;--c3:#b57b28;--c4:#a65365;--c5:#3f827b;--c6:#727e8d;--surface:#f5f7f9}
+  @media(prefers-color-scheme:dark){:root{--bg:#171b21;--fg:#e6eaf0;--muted:#aab3bf;--line:#38414d;--working:#3d9878;--dummy:#dbad4a;--needs:#bf6470;--c1:#7aa9d0;--c2:#a89bc9;--c3:#d7ad6b;--c4:#d28a9b;--c5:#79b9b2;--c6:#a1aebf;--surface:#222933}}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,sans-serif}main{max-width:1180px;margin:auto;padding:40px 28px 72px}h1,h2,h3{font-weight:550;line-height:1.3}h1{font-size:30px;margin:0 0 10px}h2{font-size:22px;margin:0 0 12px}h3{font-size:16px;margin:0 0 8px}p{margin:8px 0}section{margin-top:42px;padding-top:25px;border-top:1px solid var(--line)}header p,.note{color:var(--muted)}.note{font-size:13px}.tabular{font-variant-numeric:tabular-nums}nav{display:flex;flex-wrap:wrap;gap:10px 20px;margin:24px 0}a{color:inherit;text-underline-offset:3px}ul{padding-left:22px}li{margin:7px 0}.legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin:16px 0}.swatch{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px}.working{background:var(--working)}.dummy{background:var(--dummy)}.needs{background:var(--needs)}svg{display:block;width:100%;overflow:visible}svg text{fill:var(--fg);font:12px system-ui,sans-serif}svg .axis{fill:var(--muted)}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{font-weight:550}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}details{margin:14px 0}summary{cursor:pointer;padding:8px 0}.flow{opacity:.35;transition:opacity .12s}.flow:hover,.flow:focus{opacity:.85}.readout{min-height:3.2em;font-size:14px}.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 26px}.detail-item{font-size:13px;break-inside:avoid}.detail-item span{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}.status-panel{margin-top:8px}.empty{padding:30px 0;color:var(--muted)}footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;font-size:13px;color:var(--muted)}.warning{padding:12px 16px;background:var(--surface);border-radius:6px}
+  @media(max-width:650px){main{padding:24px 16px 40px}h1{font-size:25px}.detail-grid{grid-template-columns:1fr}section{margin-top:28px}th,td{padding:8px 6px}nav{gap:8px 14px;font-size:13px}}
+  @media print{main{max-width:none;padding:0}nav{display:none}section{break-inside:avoid}.table-wrap{overflow:visible}.note,footer{color:var(--fg)}}
+</style>
+<main>
+  <header><h1>SACO Quote Report</h1><p id="period"></p><p class="note" id="snapshot"></p></header>
+  <nav aria-label="Reportabschnitte"><a href="#summary">Executive Summary</a><a href="#status">Statusverteilung</a><a href="#ranking">Fehlerranking</a><a href="#absolute">Absoluter Fehlerverlauf</a><a href="#relative">Relative Fehlerverteilung</a></nav>
+  <section id="summary"><h2>Executive Summary</h2><ul id="summary-list"></ul><p id="review-note" class="note"></p></section>
+  <section id="status"><h2>Statusverteilung im Zeitverlauf</h2><p class="note">Balkenhöhe: E-Mails. Beschriftung: Anteil am Monatsgesamtwert. Ein Stern kennzeichnet einen Teilmonat.</p><div class="legend"><span><i class="swatch working"></i>Working</span><span><i class="swatch dummy"></i>Working DUMMY</span><span><i class="swatch needs"></i>Needs work</span></div><div id="status-charts"></div><details><summary>Monatswerte und genaue Anteile</summary><div class="table-wrap" id="status-table"></div></details></section>
+  <section id="ranking"><h2>Fehlerranking</h2><p class="note" id="ranking-scope"></p><div class="table-wrap" id="ranking-table"></div></section>
+  <section id="absolute"><h2>Absoluter Fehlerverlauf</h2><p class="note">Die Banddicke zeigt Fehlernennungen pro Monat auf einer gemeinsamen Mengenskala. Mehrere Fehler pro E-Mail sind enthalten.</p><svg id="absolute-chart" role="img" aria-label="Absolute Fehlernennungen nach Monat und Fehlergruppe"></svg><p class="readout" id="absolute-readout" aria-live="polite"></p><details><summary>Fehlergruppen und Monatswerte</summary><div class="detail-grid" id="absolute-legend"></div><div class="table-wrap" id="absolute-table"></div></details></section>
+  <section id="relative"><h2>Relative Fehlerverteilung</h2><p class="note">Jeder Monat mit Fehlernennungen entspricht 100 %. Der Nenner ist die Summe der berücksichtigten Fehlernennungen dieses Monats, nicht die Zahl der E-Mails.</p><svg id="relative-chart" role="img" aria-label="Relative Fehleranteile pro Monat, normiert auf 100 Prozent der Fehlernennungen"></svg><p class="readout" id="relative-readout" aria-live="polite"></p><details><summary>Fehlergruppen und Monatsanteile</summary><div class="detail-grid" id="relative-legend"></div><div class="table-wrap" id="relative-table"></div></details></section>
+  <footer><p>Working bedeutet: kein [Needs work] im Betreff und kein VORGABE-Tarif. Working DUMMY bedeutet: kein solcher Betreffmarker, aber VORGABE im Tarif-Feld. Needs work folgt ausschließlich dem Betreffmarker, unabhängig vom Tarif. Beide historischen VORGABE-Nummern sind enthalten.</p><p>Kunden-, Firmen- und Tarifzuordnungsfehler sind aus der Fehlerauswertung ausgeschlossen. Fehlerarten werden je E-Mail einmal gezählt. Unterschiedliche Gmail-IDs bleiben als einzelne E-Mails enthalten. Die Sankey-artigen Verbindungen vergleichen Monatsverteilungen und verfolgen keine einzelnen Anfragen.</p><p id="source-note"></p></footer>
+</main>
+<script id="report-data" type="application/json">REPORT_DATA_JSON</script>
+<script>
+(() => {
+  const d = JSON.parse(document.getElementById('report-data').textContent);
+  const $ = id => document.getElementById(id);
+  const nf = new Intl.NumberFormat('de-DE');
+  const pct = v => new Intl.NumberFormat('de-DE',{style:'percent',maximumFractionDigits:1}).format(v);
+  const date = v => new Intl.DateTimeFormat('de-DE',{timeZone:d.timezone,day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date(v));
+  const ns = 'http://www.w3.org/2000/svg';
+  function node(tag,attrs={},text){const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;return e;}
+  function htmlNode(tag,text){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;return e;}
+  function title(mark,text){mark.append(node('title',{},text));return mark;}
+  function partial(month){const start=new Date(d.periodStart),end=new Date(d.periodEnd);const parts=t=>Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:d.timezone,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(t).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));const a=parts(start),b=parts(end);const am=a.year+'-'+a.month,bm=b.year+'-'+b.month;return (month===am&&(a.day!=='01'||a.hour!=='00'||a.minute!=='00'||a.second!=='00'))||(month===bm&&(b.day!=='01'||b.hour!=='00'||b.minute!=='00'||b.second!=='00'));}
+  function monthLabel(m){return new Intl.DateTimeFormat('de-DE',{month:'short',year:'2-digit',timeZone:'UTC'}).format(new Date(m+'-15T12:00:00Z'))+(partial(m)?'*':'');}
+  function cell(row,text,numeric=false,tag='td'){const c=htmlNode(tag,text);if(numeric)c.className='num';row.append(c);return c;}
+  function table(headers,rows){const t=htmlNode('table'),head=htmlNode('thead'),body=htmlNode('tbody'),tr=htmlNode('tr');headers.forEach((h,i)=>cell(tr,h,i>0&&h!=='Fehlerart','th'));head.append(tr);rows.forEach(r=>{const row=htmlNode('tr');r.forEach((v,i)=>cell(row,v,i>0&&headers[i]!=='Fehlerart'));body.append(row);});t.append(head,body);return t;}
+  const periodText = date(d.periodStart)+' bis '+date(d.periodEnd);
+  $('period').textContent=periodText+' · '+nf.format(d.totalEmails)+' E-Mails';
+  $('snapshot').textContent='Datenstand: '+new Intl.DateTimeFormat('de-DE',{timeZone:d.timezone,dateStyle:'medium',timeStyle:'short'}).format(new Date(d.asOf))+' · Europe/Berlin · Teilmonate sind mit * markiert.';
+  const summary=[...d.statuses.map((name,i)=>name+': '+nf.format(d.totals[i])+' E-Mails ('+pct(d.totals[i]/d.totalEmails)+').'),nf.format(d.assignments)+' berücksichtigte Fehlernennungen in '+nf.format(d.emailsWithOtherErrors)+' Needs-work-E-Mails; '+nf.format(d.excludedCustomerOnly)+' enthalten ausschließlich ausgeschlossene Zuordnungsfehler.'];
+  if(d.groups.length)summary.push('Die häufigste Fehlergruppe ist „'+d.groups[0].name+'“ mit '+nf.format(d.groups[0].total)+' betroffenen E-Mails.');
+  summary.forEach(text=>$('summary-list').append(htmlNode('li',text)));
+  if(d.uncategorizedNeedsWork||d.review.length){$('review-note').classList.add('warning');$('review-note').textContent=d.uncategorizedNeedsWork+' Needs-work-E-Mails sind nicht zugeordnet. Für '+new Set(d.review.map(r=>r.id)).size+' E-Mails ist eine zusätzliche Prüfung der Fehlermeldungen vermerkt.';}
+  $('ranking-scope').textContent='Anteil an allen '+nf.format(d.totals[2])+' Needs-work-E-Mails. Eine E-Mail kann mehreren Fehlergruppen zugeordnet sein.';
+  $('source-note').textContent='Quelle: vollständiger Gmail-Abruf einschließlich Spam und Papierkorb. '+(d.sourceNote||'Suchfilter: '+d.query)+'. Keine Rohtexte, Kundenadressen oder Anhänge sind in diesem Dokument eingebettet.';
+  $('status-table').append(table(['Monat',...d.statuses],d.monthly.map(m=>{const total=m.counts.reduce((a,b)=>a+b,0);return [monthLabel(m.month),...m.counts.map(v=>nf.format(v)+' ('+(total?pct(v/total):'keine E-Mails')+')')];})));
+  let previous=-1,rank=0;
+  const rankingRows=d.groups.map((g,i)=>{if(g.total!==previous)rank=i+1;previous=g.total;return [String(rank),g.name,nf.format(g.total),d.totals[2]?pct(g.total/d.totals[2]):'–'];});
+  $('ranking-table').append(table(['Rang','Fehlerart','E-Mails','Anteil'],rankingRows));
+  const monthlyErrors=d.monthly.map((m,i)=>d.groups.reduce((sum,g)=>sum+g.counts[i],0));
+  for(const relative of [false,true]){const key=relative?'relative':'absolute';d.groups.forEach(g=>{const p=htmlNode('div');p.className='detail-item';const swatch=htmlNode('span');swatch.style.background='var(--c'+g.color+')';p.append(swatch,document.createTextNode(g.name+' · '+nf.format(g.total)));$(key+'-legend').append(p);});$(key+'-table').append(table(['Fehlergruppe',...d.monthly.map(m=>monthLabel(m.month))],d.groups.map(g=>[g.name,...g.counts.map((v,i)=>relative?(monthlyErrors[i]?pct(v/monthlyErrors[i]):'keine Nennungen'):nf.format(v))])));}
+  function drawStatus(){
+    const host=$('status-charts'),width=host.getBoundingClientRect().width;
+    host.replaceChildren();
+    const perPanel=Math.max(1,Math.floor((width-50)/48));
+    const max=Math.max(1,...d.monthly.map(m=>m.counts.reduce((a,b)=>a+b,0)));
+    const ymax=Math.ceil(max/10)*10;
+    for(let start=0;start<d.monthly.length;start+=perPanel){
+      const rows=d.monthly.slice(start,start+perPanel),height=470,top=30,bottom=410,plot=bottom-top,left=42,right=12;
+      const svg=node('svg',{viewBox:'0 0 '+width+' '+height,role:'img','aria-label':'Statusverteilung '+rows.map(m=>monthLabel(m.month)).join(', '),class:'status-panel'});
+      for(let tick=0;tick<=5;tick++){const value=ymax*tick/5,y=bottom-plot*value/ymax;svg.append(node('line',{x1:left,x2:width-right,y1:y,y2:y,stroke:'var(--line)','stroke-width':1}),node('text',{x:left-7,y:y+4,'text-anchor':'end',class:'axis'},nf.format(value)));}
+      rows.forEach((m,j)=>{const step=(width-left-right)/rows.length,x=left+step*(j+.5),bar=Math.min(48,step*.8),total=m.counts.reduce((a,b)=>a+b,0);let y=bottom;
+        m.counts.forEach((v,i)=>{if(!v)return;const h=v/ymax*plot;y-=h;const text=d.statuses[i]+' · '+monthLabel(m.month)+': '+nf.format(v)+' ('+pct(v/total)+')';const rect=title(node('rect',{x:x-bar/2,y,width:bar,height:h,rx:Math.min(6,h/2),fill:['var(--working)','var(--dummy)','var(--needs)'][i]}),text);svg.append(rect);
+          if(h>=13){const label=node('text',{x,y:y+h/2+4,'text-anchor':'middle','pointer-events':'none'},Math.round(v/total*100)+'%');label.style.fill=i===1?'#232323':'#fff';svg.append(label);}
+        });
+        svg.append(node('text',{x,y:bottom+24,'text-anchor':'middle',class:'axis'},monthLabel(m.month)),node('text',{x,y:bottom-total/ymax*plot-8,'text-anchor':'middle'},total));
+      });host.append(svg);
+    }
+  }
+  function drawSankey(relative){
+    const key=relative?'relative':'absolute',svg=$(key+'-chart'),readout=$(key+'-readout');
+    const width=svg.getBoundingClientRect().width;
+    const rows=d.monthly.length,height=610,pad=25,gap=Math.min(4,70/Math.max(1,d.groups.length)),x=i=>rows===1?width/2:pad+i*(width-2*pad)/(rows-1);
+    svg.replaceChildren();svg.setAttribute('viewBox','0 0 '+width+' '+height);
+    svg.append(node('title',{},relative?'Fehleranteile pro Monat':'Fehlernennungen pro Monat'));
+    svg.append(node('desc',{},'Keine Übergänge einzelner Anfragen. Alle Fehlergruppen sind im ausklappbaren Bereich und im Ranking benannt.'));
+    if(!d.groups.length){svg.append(node('text',{x:20,y:40},'Keine berücksichtigten Fehlernennungen im Zeitraum.'));readout.textContent='';return;}
+    const scale=relative?450:450/Math.max(1,...monthlyErrors);
+    const positions=d.monthly.map((m,i)=>{let y=70;return d.groups.map(g=>{const count=g.counts[i],v=relative?(monthlyErrors[i]?count/monthlyErrors[i]:0):count,top=y;const size=v*scale;y+=size+gap;return {top,bottom:top+size,count};});});
+    const label=(count,i)=>relative?(monthlyErrors[i]?pct(count/monthlyErrors[i]):'keine Nennungen')+' ('+count+' von '+monthlyErrors[i]+')':nf.format(count)+' Nennungen';
+    d.monthly.forEach((m,i)=>{if(i===0||i===rows-1||(!(i%Math.ceil(rows/Math.max(1,Math.floor(width/55))))&&rows-1-i>=Math.ceil(rows/Math.max(1,Math.floor(width/55)))))svg.append(node('text',{x:x(i),y:24,'text-anchor':'middle',class:'axis'},monthLabel(m.month)));if(i===0||i===rows-1||(!(i%Math.ceil(rows/Math.max(1,Math.floor(width/55))))&&rows-1-i>=Math.ceil(rows/Math.max(1,Math.floor(width/55)))))svg.append(title(node('text',{x:x(i),y:46,'text-anchor':'middle'},relative?(monthlyErrors[i]?'100%':'–'):monthlyErrors[i]),monthlyErrors[i]+' Fehlernennungen'));});
+    d.groups.forEach((g,k)=>{
+      const fill='var(--c'+g.color+')';
+      for(let i=0;i<rows-1;i++){const a=positions[i][k],b=positions[i+1][k];if(!a.count&&!b.count)continue;const left=x(i)+3,right=x(i+1)-3,mid=(left+right)/2;const path='M '+left+' '+a.top+' C '+mid+' '+a.top+' '+mid+' '+b.top+' '+right+' '+b.top+' L '+right+' '+b.bottom+' C '+mid+' '+b.bottom+' '+mid+' '+a.bottom+' '+left+' '+a.bottom+' Z';const text=g.name+' · '+monthLabel(d.monthly[i].month)+': '+label(a.count,i)+' → '+monthLabel(d.monthly[i+1].month)+': '+label(b.count,i+1);const mark=title(node('path',{d:path,fill,class:'flow'}),text);mark.addEventListener('pointerenter',()=>readout.textContent=text);mark.addEventListener('click',()=>readout.textContent=text);svg.append(mark);}
+      positions.forEach((p,i)=>{const n=p[k];if(!n.count)return;const text=g.name+' · '+monthLabel(d.monthly[i].month)+': '+label(n.count,i);const mark=title(node('rect',{x:x(i)-3,y:n.top,width:6,height:n.bottom-n.top,rx:2,fill}),text);mark.addEventListener('click',()=>readout.textContent=text);svg.append(mark);});
+    });
+    if(!readout.textContent)readout.textContent='Band berühren oder darüberfahren: Fehlergruppe und Monatswerte anzeigen.';
+  }
+  let lastWidth=0;
+  new ResizeObserver(entries=>{const width=entries[0].contentRect.width;if(Math.abs(width-lastWidth)<1)return;lastWidth=width;drawStatus();drawSankey(false);drawSankey(true);}).observe(document.querySelector('main'));
+})();
+</script>
+</html>

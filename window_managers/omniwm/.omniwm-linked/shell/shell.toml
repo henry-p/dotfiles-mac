@@ -1,0 +1,23 @@
+profile = "default"
+
+[profiles]
+
+[profiles.default]
+center = ["workspaces"]
+leading = []
+trailing = []
+
+[profiles.default.hiddenBar]
+enabled = true
+
+[profiles.default.workspaceBar]
+autoHide = false
+fullWidth = false
+height = 32.0
+hideEmptyWorkspaces = false
+notchActiveZoneWidth = 100.0
+notchMode = "rightOfNotch"
+position = "overlappingMenuBar"
+reserveLayoutSpace = false
+transparentBackground = false
+windowLevel = "popup"

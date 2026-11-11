@@ -1,4 +1,4 @@
-model = "gpt-6.1-terra"
+model = "gpt-6.1-sol"
 model_reasoning_effort = "medium"
 
 notify = ["/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
@@ -34,17 +34,15 @@ startup_timeout_sec = 120
 NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
 NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
-CODEX_HOME = "/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/henry/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+CODEX_HOME = "/Users/henry/.codex"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab,mcpapps"
 BROWSER_USE_TINYSKY_ENABLED = "1"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
-NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
-NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.1029.61003"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/plugins/cache/openai-bundled/browser/26.1029.61003/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
-SKY_CUA_SERVICE_PATH = "/Users/henry/coding/private/dotfiles-mac/agent_harnesses/codex/.codex-linked/computer-use/Codex Computer Use.app"
+BROWSER_USE_CODEX_APP_VERSION = "26.1103.60933"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/henry/.codex/plugins/cache/openai-bundled/browser/26.1103.60933/scripts/browser-service.mjs"}'
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex"
 
 [mcp_servers.computer-use]
@@ -58,6 +56,10 @@ command = "/Applications/Jean.app/Contents/MacOS/jean"
 args = ["--jean-mcp-stdio"]
 env = { JEAN_MCP_SOCKET = "/Users/henry/Library/Application Support/com.jean.desktop/jean-mcp.sock", JEAN_MCP_TOKEN = "6omHJzJXrihCaxSV1oy9GzZPiOgmpSDn_OiNKCp02Ik", JEAN_MCP_SESSION = "manual-prod", JEAN_MCP_DEPTH = "0", JEAN_MCP_MODE = "prod" }
 enabled = true
+
+[mcp_servers.cua_repl]
+command = "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
+enabled = false
 
 [hooks.state]
 
@@ -167,6 +169,7 @@ appearanceLightCodeThemeId = "catppuccin"
 migratedFollowUpQueueToSteer = true
 followUpQueueMode = "queue"
 browser-show-device-toolbar-in-new-tabs = true
+agent-usage-reset-enabled = true
 
 [desktop.open-in-target-preferences]
 global = "vscode"
@@ -426,6 +429,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/henry/coding/private/socialpump"]
+trust_level = "trusted"
+
+[projects."/Users/henry/coding/private/ukelearner"]
 trust_level = "trusted"
 
 [[skills.config]]

@@ -358,12 +358,6 @@ assignToWorkspace = "8"
 bundleId = "org.inkscape.Inkscape"
 id = "469A0F44-BD23-4EC5-AB02-F5B65A760980"
 
-[[appRules]]
-bundleId = "com.openai.codex"
-id = "AE7CCE85-22AE-47C2-9E45-4F734045F0BA"
-layout = "float"
-titleRegex = "^ChatGPT$"
-
 [[hotkeys]]
 binding = "Unassigned"
 id = "toggleScratchpad.1"
